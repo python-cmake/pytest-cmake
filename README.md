@@ -82,3 +82,10 @@ variable. Bundling the tests will limit the visibility of all discovered test
 with CTest, but it will ensure that the tests can run faster in case you are 
 using [fixture](https://docs.pytest.org/en/latest/explanation/fixtures.html) 
 with a wider scope.
+
+Finally, ensure that ``FindPytest.cmake`` and ``PytestAddTests.cmake`` are
+available via [CMAKE_MODULE_PATH](https://cmake.org/cmake/help/latest/variable/CMAKE_MODULE_PATH.html)
+and do not forget to [install Pytest](https://docs.pytest.org/en/7.1.x/getting-started.html) 
+with the required version.
+
+An example project is available for more details.
