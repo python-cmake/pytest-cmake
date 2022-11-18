@@ -19,7 +19,7 @@ jobs:
 
         name: |
             Pytest v${{ matrix.pytest }}
-            | CMake v${{ matrix.cmake }})
+            | CMake v${{ matrix.cmake }}
             | ${{ matrix.os }}-py${{ matrix.python }}
             | bundled: ${{ matrix.bundled }}
 
