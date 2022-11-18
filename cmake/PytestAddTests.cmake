@@ -1,5 +1,5 @@
 # Wrapper used to create individual CTest tests from Pytest tests.
-cmake_minimum_required(VERSION ${CMAKE_VERSION})
+cmake_minimum_required(VERSION 3.20...3.25)
 
 if(CMAKE_SCRIPT_MODE_FILE)
 
@@ -13,15 +13,15 @@ if(CMAKE_SCRIPT_MODE_FILE)
     if (BUNDLE_TESTS)
         string(APPEND _content
             "add_test(\n"
-            "    ${TEST_GROUP_NAME}\n"
+            "    \"${TEST_GROUP_NAME}\"\n"
             "    ${PYTEST_EXECUTABLE} \"${WORKING_DIRECTORY}\"\n"
             ")\n"
             "set_tests_properties(\n"
-            "     ${TEST_GROUP_NAME} PROPERTIES\n"
+            "     \"${TEST_GROUP_NAME}\" PROPERTIES\n"
             "     ENVIRONMENT \"${LIB_ENV_PATH}=${LIBRARY_PATH}\"\n"
             ")\n"
             "set_tests_properties(\n"
-            "     ${TEST_GROUP_NAME}\n"
+            "     \"${TEST_GROUP_NAME}\"\n"
             "     APPEND PROPERTIES\n"
             "     ENVIRONMENT \"PYTHONPATH=${PYTHON_PATH}\"\n"
             ")\n"
@@ -73,15 +73,15 @@ if(CMAKE_SCRIPT_MODE_FILE)
 
             string(APPEND _content
                 "add_test(\n"
-                "    ${test_name}\n"
+                "    \"${test_name}\"\n"
                 "    ${PYTEST_EXECUTABLE} \"${test_case}\"\n"
                 ")\n"
                 "set_tests_properties(\n"
-                "     ${test_name} PROPERTIES\n"
+                "     \"${test_name}\" PROPERTIES\n"
                 "     ENVIRONMENT \"${LIB_ENV_PATH}=${LIBRARY_PATH}\"\n"
                 ")\n"
                 "set_tests_properties(\n"
-                "     ${test_name}\n"
+                "     \"${test_name}\"\n"
                 "     APPEND PROPERTIES\n"
                 "     ENVIRONMENT \"PYTHONPATH=${PYTHON_PATH}\"\n"
                 ")\n"

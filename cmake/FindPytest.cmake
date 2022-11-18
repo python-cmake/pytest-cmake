@@ -16,10 +16,12 @@
 #     The Pytest_ROOT environment variable or CMake variable can be used to
 #     prepend a custom search path.
 #     (https://cmake.org/cmake/help/latest/policy/CMP0074.html)
+cmake_minimum_required(VERSION 3.20...3.25)
 
 include(FindPackageHandleStandardArgs)
 
 find_program(PYTEST_EXECUTABLE NAMES pytest)
+mark_as_advanced(PYTEST_EXECUTABLE)
 
 if(PYTEST_EXECUTABLE)
     execute_process(
@@ -32,11 +34,7 @@ if(PYTEST_EXECUTABLE)
     if (_version MATCHES "pytest version ([0-9]+\\.[0-9]+\\.[0-9]+),")
         set(PYTEST_VERSION "${CMAKE_MATCH_1}")
     endif()
-
-    mark_as_advanced(_version)
 endif()
-
-mark_as_advanced(PYTEST_EXECUTABLE PYTEST_VERSION)
 
 find_package_handle_standard_args(
     Pytest
@@ -44,10 +42,12 @@ find_package_handle_standard_args(
         PYTEST_EXECUTABLE
     VERSION_VAR
         PYTEST_VERSION
+    HANDLE_COMPONENTS
+    HANDLE_VERSION_RANGE
 )
 
 if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
-    add_executable(Pytest::Pytest IMPORTED GLOBAL)
+    add_executable(Pytest::Pytest IMPORTED)
     set_target_properties(Pytest::Pytest
         PROPERTIES
             IMPORTED_LOCATION "${PYTEST_EXECUTABLE}")
@@ -120,15 +120,12 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
             -D "PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}"
             -D "CTEST_FILE=${_tests_file}"
-            -P "${_PYTEST_DISCOVER_TESTS_SCRIPT}")
+            -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")
 
         # Add discovered tests to directory TEST_INCLUDE_FILES
         set_property(DIRECTORY
             APPEND PROPERTY TEST_INCLUDE_FILES "${_tests_file}")
 
     endfunction()
-
-    set(_PYTEST_DISCOVER_TESTS_SCRIPT
-        ${CMAKE_CURRENT_LIST_DIR}/PytestAddTests.cmake)
 
 endif()
