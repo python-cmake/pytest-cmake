@@ -20,6 +20,7 @@ jobs:
         name: |
             Pytest v${{ matrix.pytest }}
             (${{ matrix.os }}-py${{ matrix.python }} 
+            | cmake: ${{ matrix.cmake }})
             | bundled: ${{ matrix.bundled }})
 
         runs-on: "${{ matrix.os }}-latest"
@@ -94,7 +95,7 @@ jobs:
             -   name: Build Example
                 shell: bash
                 run: |
-                    cmake --version \
+                    cmake --version
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)/cmake" \
                         -S ./example \
