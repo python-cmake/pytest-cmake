@@ -2,7 +2,7 @@
 
 [![Test](https://github.com/buddly27/pytest-cmake/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/buddly27/pytest-cmake/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CMake](https://img.shields.io/badge/CMake-3.20+-blue.svg)](https://cmake.org/cmake/help/latest/release/3.20.html)
+[![CMake](https://img.shields.io/badge/CMake-3.20...3.25-blue.svg)](https://cmake.org)
 
 Discover and run Python tests for [Pytest](https://docs.pytest.org/) with 
 [CMake](https://cmake.org/). This module simplify Python automatic testing for 
