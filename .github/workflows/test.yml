@@ -19,9 +19,9 @@ jobs:
 
         name: |
             Pytest v${{ matrix.pytest }}
-            (${{ matrix.os }}-py${{ matrix.python }} 
-            | cmake: ${{ matrix.cmake }})
-            | bundled: ${{ matrix.bundled }})
+            | CMake v${{ matrix.cmake }})
+            | ${{ matrix.os }}-py${{ matrix.python }}
+            | bundled: ${{ matrix.bundled }}
 
         runs-on: "${{ matrix.os }}-latest"
 
