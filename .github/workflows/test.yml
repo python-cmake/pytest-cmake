@@ -37,7 +37,7 @@ jobs:
             -   name: Setup cmake
                 uses: jwlawson/actions-setup-cmake@v1.13
                 with:
-                    cmake-version: "${{ cmake.pytest }}"
+                    cmake-version: "${{ matrix.cmake }}"
 
             -   name: Install Pytest + Conan
                 shell: bash
