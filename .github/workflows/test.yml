@@ -12,7 +12,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ "ubuntu", "macos", "windows" ]
-                cmake: [ "3.20", "3.25" ]
+                cmake: [ "3.20.6", "3.25.0" ]
                 pytest: [ "6", "7" ]
                 python: [ "3.7", "3.8", "3.9", "3.10" ]
                 bundled: [ false, true ]
@@ -38,7 +38,7 @@ jobs:
             -   name: Setup cmake
                 uses: jwlawson/actions-setup-cmake@v1.13
                 with:
-                    cmake-version: "${{ matrix.cmake }}.x"
+                    cmake-version: "${{ matrix.cmake }}"
 
             -   name: Install Pytest + Conan
                 shell: bash
