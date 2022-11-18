@@ -2,7 +2,7 @@ name: Test
 
 on:
     push:
-        branches: [ main, dev ]
+        branches: [ main ]
     pull_request:
         branches: [ main ]
 
@@ -38,7 +38,7 @@ jobs:
             -   name: Setup cmake
                 uses: jwlawson/actions-setup-cmake@v1.13
                 with:
-                    cmake-version: "${{ matrix.cmake }}"
+                    cmake-version: "${{ matrix.cmake }}.x"
 
             -   name: Install Pytest + Conan
                 shell: bash
