@@ -37,8 +37,18 @@ jobs:
 
             -   name: Setup cmake
                 uses: jwlawson/actions-setup-cmake@v1.13
+                if: ${{matrix.os != 'windows' || matrix.cmake != '3.20'}}
                 with:
                     cmake-version: "${{ matrix.cmake }}.x"
+
+            -   name: Setup cmake (Windows exception for CMake 3.20)
+                uses: jwlawson/actions-setup-cmake@v1.13
+                if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
+                with:
+                    # CMake version below 3.21 are not compatible with
+                    # Visual Studio 17 2022.
+                    # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
+                    cmake-version: "3.21.x"
 
             -   name: Install Pytest + Conan
                 shell: bash
