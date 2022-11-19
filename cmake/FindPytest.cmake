@@ -16,6 +16,7 @@
 #     The Pytest_ROOT environment variable or CMake variable can be used to
 #     prepend a custom search path.
 #     (https://cmake.org/cmake/help/latest/policy/CMP0074.html)
+
 cmake_minimum_required(VERSION 3.20...3.25)
 
 include(FindPackageHandleStandardArgs)

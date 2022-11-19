@@ -12,14 +12,16 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ "ubuntu", "macos", "windows" ]
+                cmake: [ "3.20", "3.25" ]
                 pytest: [ "6", "7" ]
                 python: [ "3.7", "3.8", "3.9", "3.10" ]
                 bundled: [ false, true ]
 
         name: |
             Pytest v${{ matrix.pytest }}
-            (${{ matrix.os }}-py${{ matrix.python }} 
-            | bundled: ${{ matrix.bundled }})
+            | CMake v${{ matrix.cmake }}
+            | ${{ matrix.os }}-py${{ matrix.python }}
+            | bundled: ${{ matrix.bundled }}
 
         runs-on: "${{ matrix.os }}-latest"
 
@@ -33,9 +35,26 @@ jobs:
 
             -   uses: actions/checkout@v3
 
+            -   name: Setup cmake
+                uses: jwlawson/actions-setup-cmake@v1.13
+                if: ${{matrix.os != 'windows' || matrix.cmake != '3.20'}}
+                with:
+                    cmake-version: "${{ matrix.cmake }}.x"
+
+            -   name: Setup cmake (Bump up CMake minimal version for Visual Studio 17 2022)
+                uses: jwlawson/actions-setup-cmake@v1.13
+                if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
+                with:
+                    # Visual Studio 17 2022 requires at least CMake 3.21.
+                    # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
+                    cmake-version: "3.21.x"
+
             -   name: Install Pytest + Conan
+                shell: bash
                 run: |
-                    pip install pytest==${{ matrix.pytest }}.* conan numpy
+                    pip install \
+                        pytest==${{ matrix.pytest }}.* \
+                        conan numpy
                     conan profile new default --detect
                     conan profile show default
 
@@ -85,6 +104,7 @@ jobs:
             -   name: Build Example
                 shell: bash
                 run: |
+                    cmake --version
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)/cmake" \
                         -S ./example \
