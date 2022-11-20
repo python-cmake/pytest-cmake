@@ -1,3 +1,4 @@
+# cmake artifacts
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -9,8 +10,43 @@ cmake-build-*/
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
-_deps
-pytest
-__pycache__
-build
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Sphinx documentation
+docs/_build/
+
+# virtualenv
+venv/
+ENV/
+
+# Caches
+Thumbs.db
+
+# Development
+.project
+.pydevproject
+.settings
 .idea/
+.history/
