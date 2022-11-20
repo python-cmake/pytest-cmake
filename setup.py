@@ -13,7 +13,7 @@ setup(
     python_requires=">=3.7, <4",
     data_files=[
         (
-            "share/cmake/Modules",
+            "share/Pytest/cmake",
             ["cmake/FindPytest.cmake", "cmake/PytestAddTests.cmake"]
         )
     ],
