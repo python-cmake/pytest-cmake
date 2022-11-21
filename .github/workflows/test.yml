@@ -110,7 +110,8 @@ jobs:
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
                         -S ./example \
-                        -B ./build
+                        -B ./build \
+                        --debug-find
                     cmake --build ./build --config Release
 
             -   name: Run Tests
