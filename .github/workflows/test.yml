@@ -57,6 +57,7 @@ jobs:
                         conan numpy
                     conan profile new default --detect
                     conan profile show default
+                    which pytest
 
             -   name: Setup compiler (Linux only)
                 if: ${{ matrix.os == 'ubuntu' }}
