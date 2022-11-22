@@ -1,8 +1,16 @@
 from setuptools import setup
 import pathlib
+import shutil
+import tempfile
 
 root = pathlib.Path(__file__).parent.resolve()
 long_description = (root / "README.md").read_text(encoding="utf-8")
+
+# Copy the Pytest module to be fetched as a config.
+temp_dir = pathlib.Path(tempfile.gettempdir())
+
+config_path = str(temp_dir / "PytestConfig.cmake")
+shutil.copy(str(root / "cmake" / "FindPytest.cmake"), config_path)
 
 setup(
     name="pytest-cmake",
@@ -14,7 +22,7 @@ setup(
     data_files=[
         (
             "share/Pytest/cmake",
-            ["cmake/FindPytest.cmake", "cmake/PytestAddTests.cmake"]
+            [config_path, "cmake/PytestAddTests.cmake"]
         )
     ],
     install_requires=["pytest >= 4, < 8"],
