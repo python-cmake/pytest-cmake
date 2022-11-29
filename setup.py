@@ -2,47 +2,41 @@ from setuptools import setup
 import pytest
 
 import pathlib
+import subprocess
 import tempfile
 
 root = pathlib.Path(__file__).parent.resolve()
 long_description = (root / "README.md").read_text(encoding="utf-8")
 
-# Copy the Pytest module to be fetched as a config.
-temp_dir = pathlib.Path(tempfile.gettempdir())
+temp_dir = pathlib.Path(tempfile.mkdtemp(prefix="pytest-cmake-"))
 
+# CMake search procedure is limited to CMake package configuration files and
+# does not work with modules. Hence, we are generating a configuration file
+# based on the CMake modules created.
+# https://cmake.org/cmake/help/latest/command/find_package.html
 config_path = (temp_dir / "PytestConfig.cmake")
 with config_path.open("w", encoding="utf-8") as stream:
-    stream.write("include(${CMAKE_CURRENT_LIST_DIR}/FindPytest.cmake)")
+    stream.write("include(${CMAKE_CURRENT_LIST_DIR}/FindPytest.cmake)\n")
 
+# Generate CMake config version file for client to target a specific version
+# of Pytest within CMake projects.
+# https://cmake.org/cmake/help/latest/module/CMakePackageConfigHelpers.html
 version_config_path = (temp_dir / "PytestConfigVersion.cmake")
-with version_config_path.open("w", encoding="utf-8") as stream:
+script_path = (temp_dir / "PytestConfigVersionScript.cmake")
+with script_path.open("w", encoding="utf-8") as stream:
     stream.write(
-        f"set(PACKAGE_VERSION \"{pytest.__version__}\")\n"
-        "\n"
-        "if (PACKAGE_FIND_VERSION_RANGE)\n"
-        "  # Package version must be in the requested version range\n"
-        "  if ((PACKAGE_FIND_VERSION_RANGE_MIN STREQUAL \"INCLUDE\" AND "
-        "PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION_MIN)\n"
-        "      OR ((PACKAGE_FIND_VERSION_RANGE_MAX STREQUAL \"INCLUDE\" AND "
-        "PACKAGE_VERSION VERSION_GREATER PACKAGE_FIND_VERSION_MAX)\n"
-        "        OR (PACKAGE_FIND_VERSION_RANGE_MAX STREQUAL \"EXCLUDE\" AND "
-        "PACKAGE_VERSION VERSION_GREATER_EQUAL PACKAGE_FIND_VERSION_MAX)))\n"
-        "    set(PACKAGE_VERSION_COMPATIBLE FALSE)\n"
-        "  else()\n"
-        "    set(PACKAGE_VERSION_COMPATIBLE TRUE)\n"
-        "  endif()\n"
-        "else()\n"
-        "  if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)\n"
-        "    set(PACKAGE_VERSION_COMPATIBLE FALSE)\n"
-        "  else()\n"
-        "    set(PACKAGE_VERSION_COMPATIBLE TRUE)\n"
-        "    if(PACKAGE_FIND_VERSION STREQUAL PACKAGE_VERSION)\n"
-        "      set(PACKAGE_VERSION_EXACT TRUE)\n"
-        "    endif()\n"
-        "  endif()\n"
-        "endif()\n"
+        "include(CMakePackageConfigHelpers)\n"
+        "write_basic_package_version_file(\n"
+        f"    \"{str(version_config_path)}\"\n"
+        f"    VERSION {pytest.__version__}\n"
+        "    COMPATIBILITY AnyNewerVersion\n"
+        ")"
     )
 
+subprocess.call(["cmake", "-P", str(script_path)])
+
+# Python package configuration in charge of installing CMake configuration files
+# where CMake search procedure can discover it.
 setup(
     name="pytest-cmake",
     version="0.1.0",
