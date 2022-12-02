@@ -33,7 +33,7 @@ if(PYTEST_EXECUTABLE)
     )
 
     if (_version MATCHES "pytest (version )?([0-9]+\\.[0-9]+\\.[0-9]+)")
-        set(PYTEST_VERSION "${CMAKE_MATCH_1}")
+        set(PYTEST_VERSION "${CMAKE_MATCH_2}")
     endif()
 endif()
 
