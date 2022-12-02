@@ -92,7 +92,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         endforeach()
 
         if(NOT _content)
-            message(FATAL_ERROR "No Python tests have been discovered.")
+            message(WARNING "No Python tests have been discovered.")
         endif()
     endif()
 
