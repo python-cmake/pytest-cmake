@@ -32,8 +32,8 @@ if(PYTEST_EXECUTABLE)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    if (_version MATCHES "pytest version ([0-9]+\\.[0-9]+\\.[0-9]+),")
-        set(PYTEST_VERSION "${CMAKE_MATCH_1}")
+    if (_version MATCHES "pytest (version )?([0-9]+\\.[0-9]+\\.[0-9]+)")
+        set(PYTEST_VERSION "${CMAKE_MATCH_2}")
     endif()
 endif()
 
