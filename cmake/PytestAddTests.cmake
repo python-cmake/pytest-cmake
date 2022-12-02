@@ -33,7 +33,9 @@ if(CMAKE_SCRIPT_MODE_FILE)
         set(ENV{PYTHONPATH} "${PYTHON_PATH}")
 
         execute_process(
-            COMMAND ${PYTEST_EXECUTABLE} --collect-only -q .
+            COMMAND ${PYTEST_EXECUTABLE}
+                --collect-only -q
+                --rootdir=${WORKING_DIRECTORY} .
             OUTPUT_VARIABLE _output_list
             ERROR_VARIABLE _output_list
             OUTPUT_STRIP_TRAILING_WHITESPACE
