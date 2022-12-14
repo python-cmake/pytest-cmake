@@ -34,9 +34,6 @@ var/
 .installed.cfg
 *.egg
 
-# Sphinx documentation
-docs/_build/
-
 # virtualenv
 venv/
 ENV/
@@ -50,3 +47,11 @@ Thumbs.db
 .settings
 .idea/
 .history/
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+*,cover
+.pytest_cache/
