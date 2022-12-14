@@ -1,0 +1,19 @@
+{
+    "files": {
+        "pyproject.toml": [
+            [
+                "version = \"([\\d\\.]+)\"",
+                "version = \"[version]\""
+            ]
+        ],
+        "doc/release/release_notes.rst": [
+            [
+                ".. release:: Upcoming",
+                ".. release:: [version]\n    :date: [version_date]"
+            ]
+        ]
+    },
+    "changelog": {
+        "enabled": false
+    }
+}
