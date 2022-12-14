@@ -1,0 +1,48 @@
+[build-system]
+requires = [
+    "hatchling>=1.4",
+    "cmake >= 3.20, < 3.26"
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "pytest-cmake"
+version = "0.1.0"
+description = "Provide CMake module for Pytest"
+readme = "README.md"
+requires-python = ">=3.7, <4"
+license = {file = "LICENSE"}
+keywords = ["cmake", "pytest", "development"]
+authors = [
+    {name = "Jeremy Retailleau", email = "jeremy.retailleau@gmail.com" }
+]
+dependencies = [
+    "pytest >= 4, < 8",
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3 :: Only",
+]
+
+[tool.hatch.build.hooks.custom]
+require-runtime-dependencies = true
+path = "build_config.py"
+
+[tool.hatch.build.targets.wheel.shared-data]
+"build/PytestConfig.cmake" = "share/Pytest/cmake/PytestConfig.cmake"
+"build/PytestConfigVersion.cmake" = "share/Pytest/cmake/PytestConfigVersion.cmake"
+"cmake/FindPytest.cmake" = "share/Pytest/cmake/FindPytest.cmake"
+"cmake/PytestAddTests.cmake" = "share/Pytest/cmake/PytestAddTests.cmake"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["*.cmake"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["cmake", "build_config.py"]

@@ -57,6 +57,7 @@ jobs:
                         conan numpy
                     conan profile new default --detect
                     conan profile show default
+                    which pytest
 
             -   name: Setup compiler (Linux only)
                 if: ${{ matrix.os == 'ubuntu' }}
@@ -67,7 +68,6 @@ jobs:
             -   name: Install Boost Python
                 shell: bash
                 run: |
-                    cd cmake
                     conan install boost/1.80.0@ \
                         --options=boost:without_python=False \
                         --options=boost:without_atomic=True \
@@ -101,12 +101,15 @@ jobs:
                         --generator=cmake_find_package \
                         --build=missing 
 
+            -   name: Install pytest-cmake
+                run: pip install .
+
             -   name: Build Example
                 shell: bash
                 run: |
                     cmake --version
                     cmake \
-                        -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)/cmake" \
+                        -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
                         -S ./example \
                         -B ./build
                     cmake --build ./build --config Release
