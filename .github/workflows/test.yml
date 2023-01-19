@@ -119,7 +119,7 @@ jobs:
                 working-directory: build
                 run: ctest -VV
 
-    test-python2.7:
+    test-python27:
         strategy:
             fail-fast: false
             matrix:
