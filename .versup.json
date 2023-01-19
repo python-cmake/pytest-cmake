@@ -15,5 +15,8 @@
     },
     "changelog": {
         "enabled": false
+    },
+    "commit": {
+        "mainbranch": "main"
     }
 }
