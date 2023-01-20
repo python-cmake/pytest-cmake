@@ -53,7 +53,7 @@ jobs:
 #                uses: ./.github/actions/install-boost-python
 #                with:
 #                    platform: ${{ matrix.os }}
-#                    python: python3
+#                    python: $(which python)
 #
 #            -   name: Install pytest + pytest-cmake
 #                run: pip install . pytest==${{ matrix.pytest }}.*
@@ -118,7 +118,7 @@ jobs:
                 uses: ./.github/actions/install-boost-python
                 with:
                     platform: ${{ matrix.os }}
-                    python: python2
+                    python: $(which python2.7)
 
             -   name: Install pytest + pytest-cmake
                 run: python2 -m pip install . pytest==4.*
@@ -129,7 +129,7 @@ jobs:
                     cmake --version
                     cmake \
                         -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
-                        -DPython_EXECUTABLE="$(which python2)" \
+                        -DPython_EXECUTABLE="$(which python2.7)" \
                         -S ./example \
                         -B ./build
                     cmake --build ./build --config Release
