@@ -9,6 +9,7 @@ import subprocess
 
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
+DEPENDENCIES = ["pytest >= 4, < 8"]
 
 
 class CreateCmakeConfig(install):
@@ -72,6 +73,6 @@ setup(
         )
     ],
     cmdclass={"install": CreateCmakeConfig},
-    install_requires=["pytest >= 4, < 8"],
-    setup_requires=["pytest >= 4, < 8"],
+    install_requires=DEPENDENCIES,
+    setup_requires=DEPENDENCIES,
 )

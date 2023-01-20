@@ -54,6 +54,7 @@ jobs:
                 run: pip install pytest==${{ matrix.pytest }}.*
 
             -   name: Build Boost
+                id: boost
                 uses: egor-tensin/build-boost@v1
                 with:
                     version: 1.80.0
@@ -69,7 +70,7 @@ jobs:
                 run: |
                     cmake --version
                     cmake \
-                        -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
+                        -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" \
                         -S ./example \
                         -B ./build
                     cmake --build ./build --config Release
@@ -123,6 +124,7 @@ jobs:
                 run: pip install pytest==4.*
 
             -   name: Build Boost
+                id: boost
                 uses: egor-tensin/build-boost@v1
                 with:
                     version: 1.80.0
@@ -138,7 +140,7 @@ jobs:
                 run: |
                     cmake --version
                     cmake \
-                        -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
+                        -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" \
                         -S ./example \
                         -B ./build
                     cmake --build ./build --config Release
