@@ -49,10 +49,11 @@ jobs:
                     # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
                     cmake-version: "3.21.x"
 
-            -   name: Install Boost
-                uses: ./.github/actions/install-boost
+            -   name: Install Boost Python
+                uses: ./.github/actions/install-boost-python
                 with:
                     platform: ${{ matrix.os }}
+                    python: ${which python}
 
             -   name: Install pytest + pytest-cmake
                 run: pip install . pytest==${{ matrix.pytest }}.*
@@ -94,8 +95,8 @@ jobs:
             -   uses: actions/setup-python@v4
                 with:
                     python-version: |
-                        3.10
                         2.7
+                        3.10
 
             -   uses: actions/checkout@v3
 
@@ -113,10 +114,11 @@ jobs:
                     # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
                     cmake-version: "3.21.x"
 
-            -   name: Install Boost
-                uses: ./.github/actions/install-boost
+            -   name: Install Boost Python
+                uses: ./.github/actions/install-boost-python
                 with:
                     platform: ${{ matrix.os }}
+                    python: ${which python2}
 
             -   name: Install pytest + pytest-cmake
                 run: python2 -m pip install . pytest==4.*

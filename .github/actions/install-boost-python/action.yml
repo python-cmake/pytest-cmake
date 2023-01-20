@@ -4,6 +4,8 @@ description: "Install Boost "
 inputs:
     platform:
         description: "Indicate the identifier of the platform"
+    python:
+        description: "Path to python executable"
 
 runs:
     using: composite
@@ -56,4 +58,5 @@ runs:
                     --options=boost:without_type_erasure=True \
                     --options=boost:without_wave=True \
                     --generator=cmake_find_package \
+                    --python_executable=${{ inputs.python }} \
                     --build=missing 
