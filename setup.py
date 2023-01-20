@@ -73,4 +73,5 @@ setup(
     ],
     cmdclass={"install": CreateCmakeConfig},
     install_requires=["pytest >= 4, < 8"],
+    setup_requires=["pytest >= 4, < 8"],
 )
