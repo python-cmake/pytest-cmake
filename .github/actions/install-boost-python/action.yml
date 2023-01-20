@@ -13,7 +13,7 @@ runs:
         -   name: Install conan
             shell: bash
             run: |
-                python3 -m pip install conan numpy
+                python3 -m pip install conan
                 conan profile new default --detect
                 conan profile show default
 
@@ -23,6 +23,12 @@ runs:
             run: |
                 conan profile update settings.compiler.libcxx=libstdc++11 default
                 conan profile show default
+
+        -   name: Install numpy
+            shell: bash
+            # For some reason, boost python cannot be installed without numpy
+            # https://github.com/conan-io/conan-center-index/issues/10953
+            run: ${{ inputs.python }} -m pip install numpy
 
         -   name: Install Boost Python
             shell: bash
