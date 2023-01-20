@@ -71,6 +71,7 @@ jobs:
                     cmake --version
                     cmake \
                         -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" \
+                        -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" \
                         -S ./example \
                         -B ./build
                     cmake --build ./build --config Release
@@ -141,6 +142,7 @@ jobs:
                     cmake --version
                     cmake \
                         -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" \
+                        -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" \
                         -S ./example \
                         -B ./build
                     cmake --build ./build --config Release
