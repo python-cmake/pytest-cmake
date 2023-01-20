@@ -53,7 +53,7 @@ jobs:
                 uses: ./.github/actions/install-boost-python
                 with:
                     platform: ${{ matrix.os }}
-                    python: ${which python}
+                    python: $(which python)
 
             -   name: Install pytest + pytest-cmake
                 run: pip install . pytest==${{ matrix.pytest }}.*
@@ -118,7 +118,7 @@ jobs:
                 uses: ./.github/actions/install-boost-python
                 with:
                     platform: ${{ matrix.os }}
-                    python: ${which python2}
+                    python: $(which python2)
 
             -   name: Install pytest + pytest-cmake
                 run: python2 -m pip install . pytest==4.*
