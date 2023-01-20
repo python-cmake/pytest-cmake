@@ -63,6 +63,6 @@ runs:
                     --options=boost:without_timer=True \
                     --options=boost:without_type_erasure=True \
                     --options=boost:without_wave=True \
-                    --options=boost:python_executable=${{ inputs.python }} \
+                    --options=boost:python_executable=$(which ${{ inputs.python }}) \
                     --generator=cmake_find_package \
                     --build=missing 
