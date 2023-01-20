@@ -137,7 +137,9 @@ jobs:
         steps:
             -   uses: actions/setup-python@v4
                 with:
-                    python-version: 2.7 | 3.8
+                    python-version: |
+                        2.7
+                        3.10
 
             -   uses: actions/checkout@v3
 
