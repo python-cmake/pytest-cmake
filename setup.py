@@ -2,7 +2,7 @@
 """
 
 from setuptools import setup
-from setuptools.command.build_py import build_py
+from setuptools.command.install import install
 
 import os
 import subprocess
@@ -11,7 +11,7 @@ import subprocess
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
-class BuildExtended(build_py):
+class CreateCmakeConfig(install):
     """Custom command to create and share pytest config."""
 
     def run(self):
@@ -54,6 +54,7 @@ class BuildExtended(build_py):
             )
 
         subprocess.call(["cmake", "-P", str(script_path), "-VV"])
+        return install.run(self)
 
 
 setup(
@@ -70,6 +71,6 @@ setup(
             ]
         )
     ],
-    cmdclass={"build_py": BuildExtended},
+    cmdclass={"install": CreateCmakeConfig},
     install_requires=["pytest >= 4, < 8"],
 )
