@@ -160,7 +160,7 @@ jobs:
             -   name: Install conan
                 shell: bash
                 run: |
-                    python2 -m pip install conan numpy
+                    python3 -m pip install conan numpy
                     conan profile new default --detect
                     conan profile show default
 
@@ -207,7 +207,7 @@ jobs:
                         --build=missing 
 
             -   name: Install pytest + pytest-cmake
-                run: python3 -m pip install . pytest==4.*
+                run: python2 -m pip install . pytest==4.*
 
             -   name: Build Example
                 shell: bash
