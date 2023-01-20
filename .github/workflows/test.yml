@@ -99,7 +99,7 @@ jobs:
                         --build=missing 
 
             -   name: Install pytest + pytest-cmake
-                run: pip install . pytest==${{ matrix.pytest }}.
+                run: pip install . pytest==${{ matrix.pytest }}.*
 
             -   name: Build Example
                 shell: bash
