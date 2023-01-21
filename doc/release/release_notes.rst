@@ -11,6 +11,10 @@ Release Notes
         Updated configuration to include custom backend script in Python
         distribution.
 
+    .. change:: fixed
+
+        Fixed incorrect CMake functions in documentation.
+
 .. release:: 0.2.0
     :date: 2023-01-20
 

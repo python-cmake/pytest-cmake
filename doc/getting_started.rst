@@ -50,7 +50,7 @@ to resolve the path of the dependent target directory dynamically:
 
 .. code-block:: cmake
 
-    add_test(
+    set_tests_properties(
         TEST PythonTest
         PROPERTY ENVIRONMENT
             PYTHONPATH=$<TARGET_FILE_DIR:MyLibrary>:$ENV{PYTHONPATH}
@@ -61,7 +61,7 @@ location should be provided:
 
 .. code-block:: cmake
 
-    add_test(
+    set_tests_properties(
         TEST PythonTest
         APPEND PROPERTY ENVIRONMENT
             LD_LIBRARY_PATH=$<TARGET_FILE_DIR:MyLibrary>:$ENV{LD_LIBRARY_PATH}
