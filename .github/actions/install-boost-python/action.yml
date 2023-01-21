@@ -1,0 +1,68 @@
+name: install-boost
+description: "Install Boost "
+
+inputs:
+    platform:
+        description: "Indicate the identifier of the platform"
+    python:
+        description: "Path to python executable"
+
+runs:
+    using: composite
+    steps:
+        -   name: Install conan
+            shell: bash
+            run: |
+                python3 -m pip install conan
+                conan profile new default --detect
+                conan profile show default
+
+        -   name: Setup compiler (Linux only)
+            shell: bash
+            if: ${{ inputs.platform == 'ubuntu' }}
+            run: |
+                conan profile update settings.compiler.libcxx=libstdc++11 default
+                conan profile show default
+
+        -   name: Install numpy
+            shell: bash
+            # For some reason, boost python cannot be installed without numpy
+            # https://github.com/conan-io/conan-center-index/issues/10953
+            run: ${{ inputs.python }} -m pip install numpy
+
+        -   name: Install Boost Python
+            shell: bash
+            run: |
+                conan install boost/1.80.0@ \
+                    --options=boost:without_python=False \
+                    --options=boost:without_atomic=True \
+                    --options=boost:without_chrono=True \
+                    --options=boost:without_container=True \
+                    --options=boost:without_context=True \
+                    --options=boost:without_contract=True \
+                    --options=boost:without_coroutine=True \
+                    --options=boost:without_date_time=True \
+                    --options=boost:without_exception=True \
+                    --options=boost:without_fiber=True \
+                    --options=boost:without_filesystem=True \
+                    --options=boost:without_graph=True \
+                    --options=boost:without_iostreams=True \
+                    --options=boost:without_json=True \
+                    --options=boost:without_locale=True \
+                    --options=boost:without_log=True \
+                    --options=boost:without_math=True \
+                    --options=boost:without_nowide=True \
+                    --options=boost:without_program_options=True \
+                    --options=boost:without_random=True \
+                    --options=boost:without_regex=True \
+                    --options=boost:without_serialization=True \
+                    --options=boost:without_stacktrace=True \
+                    --options=boost:without_system=True \
+                    --options=boost:without_test=True \
+                    --options=boost:without_thread=True \
+                    --options=boost:without_timer=True \
+                    --options=boost:without_type_erasure=True \
+                    --options=boost:without_wave=True \
+                    --options=boost:python_executable=${{ inputs.python }} \
+                    --generator=cmake_find_package \
+                    --build=missing 

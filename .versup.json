@@ -6,6 +6,12 @@
                 "version = \"[version]\""
             ]
         ],
+        "setup.py": [
+            [
+                "version=\"([\\d\\.]+)\"",
+                "version=\"[version]\""
+            ]
+        ],
         "doc/release/release_notes.rst": [
             [
                 ".. release:: Upcoming",
@@ -15,5 +21,8 @@
     },
     "changelog": {
         "enabled": false
+    },
+    "commit": {
+        "mainbranch": "main"
     }
 }
