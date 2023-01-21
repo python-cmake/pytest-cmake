@@ -48,4 +48,4 @@ path = "build_config.py"
 only-include = ["*.cmake"]
 
 [tool.hatch.build.targets.sdist]
-only-include = ["cmake", "build_config.py"]
+only-include = ["cmake", "build_config.py", "build_backend.py", "setup.py"]

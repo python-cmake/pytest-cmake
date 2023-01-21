@@ -4,6 +4,13 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Updated configuration to include custom backend script in Python
+        distribution.
+
 .. release:: 0.2.0
     :date: 2023-01-20
 
