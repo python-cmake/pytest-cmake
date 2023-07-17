@@ -27,6 +27,16 @@ if(CMAKE_SCRIPT_MODE_FILE)
             ")\n"
         )
 
+        foreach(env ${ENVIRONMENT})
+            string(APPEND _content
+                "set_tests_properties(\n"
+                "     \"${TEST_GROUP_NAME}\"\n"
+                "     APPEND PROPERTIES\n"
+                "     ENVIRONMENT ${env}\n"
+                ")\n"
+            )
+        endforeach()
+
     else()
         # Set environment for collecting tests.
         set(ENV{${LIB_ENV_PATH}} "${LIBRARY_PATH}")
@@ -88,6 +98,16 @@ if(CMAKE_SCRIPT_MODE_FILE)
                 "     ENVIRONMENT \"PYTHONPATH=${PYTHON_PATH}\"\n"
                 ")\n"
             )
+
+            foreach(env ${ENVIRONMENT})
+                string(APPEND _content
+                    "set_tests_properties(\n"
+                    "     \"${test_name}\"\n"
+                    "     APPEND PROPERTIES\n"
+                    "     ENVIRONMENT ${env}\n"
+                    ")\n"
+                )
+            endforeach()
 
         endforeach()
 

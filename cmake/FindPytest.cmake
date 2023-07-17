@@ -57,7 +57,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
         cmake_parse_arguments(
             PARSE_ARGV 1 "" ""
             "WORKING_DIRECTORY;TRIM_FROM_NAME;BUNDLE_TESTS"
-            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;DEPENDS"
+            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;DEPENDS"
         )
 
         # Set library path depending on the platform.
@@ -119,6 +119,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "PYTHON_PATH=${pythonpath}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
+            -D "ENVIRONMENT=${_ENVIRONMENT}"
             -D "PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}"
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")

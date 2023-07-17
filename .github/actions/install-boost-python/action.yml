@@ -13,7 +13,7 @@ runs:
         -   name: Install conan
             shell: bash
             run: |
-                python3 -m pip install conan
+                python3 -m pip install conan==1.*
                 conan profile new default --detect
                 conan profile show default
 

@@ -6,4 +6,6 @@ pytest_discover_tests(
         $<TARGET_FILE_DIR:example>
     TRIM_FROM_NAME "^test_"
     DEPENDS example
+    ENVIRONMENT
+        "GREETING_WORD=hello"
 )
