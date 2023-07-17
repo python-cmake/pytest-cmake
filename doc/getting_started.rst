@@ -118,6 +118,21 @@ and ``PYTHON_PATH_PREPEND`` arguments, which both accept multiple values. The
 environment variable used to locate shared libraries will be automatically
 chosen according to the platform.
 
+.. note::
+
+    The ``ENVIRONMENT`` argument can be used to set custom environment variables
+    for the tests.
+
+    .. code-block:: cmake
+
+        pytest_discover_tests(
+            ...
+            ENVIRONMENT
+                "ENV_VAR1=VALUE1"
+                "ENV_VAR2=VALUE2"
+                "ENV_VAR3=VALUE3"
+        )
+
 Pytest usually requires tests to start with a
 `specific prefix <https://docs.pytest.org/en/latest/explanation/goodpractices.html>`_,
 which can be trimmed using the ``TRIM_FROM_NAME`` argument. The value can use a
@@ -175,3 +190,4 @@ follows:
 
     The :envvar:`BUNDLE_PYTHON_TESTS` environment variable can also set this
     argument dynamically.
+
