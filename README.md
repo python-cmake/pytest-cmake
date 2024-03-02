@@ -1,7 +1,7 @@
 # Pytest CMake
 
 [![PyPi version](https://img.shields.io/pypi/v/pytest-cmake.svg?logo=pypi&label=PyPI&logoColor=gold)](https://pypi.python.org/pypi/pytest-cmake)
-[![CMake](https://img.shields.io/badge/CMake-3.20...3.25-blue.svg?logo=CMake&logoColor=blue)](https://cmake.org)
+[![CMake](https://img.shields.io/badge/CMake-3.20...3.29-blue.svg?logo=CMake&logoColor=blue)](https://cmake.org)
 [![Documentation](https://readthedocs.org/projects/pytest-cmake/badge/?version=stable)](https://pytest-cmake.readthedocs.io/en/stable/)
 [![Test](https://github.com/buddly27/pytest-cmake/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/buddly27/pytest-cmake/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

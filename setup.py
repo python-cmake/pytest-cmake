@@ -9,7 +9,7 @@ import subprocess
 
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
-DEPENDENCIES = ["pytest >= 4, < 8"]
+DEPENDENCIES = ["pytest >= 4, < 9"]
 
 
 class CreateCmakeConfig(install):

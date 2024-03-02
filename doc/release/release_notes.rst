@@ -4,6 +4,22 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Fixed CMake script to ensure that library and Python path list
+        environment variables are represented as strings before
+        serializing the CTest commands.
+
+    .. change:: changed
+
+        Updated Github CI script to run all tests once a week.
+
+    .. change:: new
+
+        Added compatibility with Pytest v8 and CMake 3.29.
+
 .. release:: 0.3.0
     :date: 2023-07-18
 

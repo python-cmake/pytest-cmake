@@ -6,15 +6,19 @@ on:
     pull_request:
         branches: [ main ]
 
+    # Run tests once a week on Sunday.
+    schedule:
+        - cron: "0 6 * * 0"
+
 jobs:
     test:
         strategy:
             fail-fast: false
             matrix:
                 os: [ "ubuntu", "macos", "windows" ]
-                cmake: [ "3.20", "3.25" ]
-                pytest: [ "6", "7" ]
-                python: [ "3.7", "3.8", "3.9", "3.10" ]
+                cmake: [ "3.20", "3.29" ]
+                pytest: [ "7", "8" ]
+                python: [ "3.8", "3.11", "3.12" ]
                 bundled: [ false, true ]
 
         name: |
