@@ -2,7 +2,7 @@
 requires = [
     "hatchling >= 1.4; python_version >= '3'",
     "setuptools >= 44; python_version < '3'",
-    "cmake >= 3.20, < 3.26"
+    "cmake >= 3.20, < 3.30"
 ]
 build-backend = "build_backend"
 backend-path = ["."]
@@ -19,7 +19,7 @@ authors = [
     {name = "Jeremy Retailleau", email = "jeremy.retailleau@gmail.com" }
 ]
 dependencies = [
-    "pytest >= 4, < 8",
+    "pytest >= 4, < 9",
 ]
 classifiers = [
     "Intended Audience :: Developers",

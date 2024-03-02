@@ -6,9 +6,10 @@ if(CMAKE_SCRIPT_MODE_FILE)
     # Set Cmake test file to execute each test.
     set(_content "")
 
-    # Convert input environment variable into list.
-    string(REPLACE "\\\;" ";" LIBRARY_PATH "${LIBRARY_PATH}")
-    string(REPLACE "\\\;" ";" PYTHON_PATH "${PYTHON_PATH}")
+    # Ensure that list environment variables are
+    # represented as a string on Windows.
+    string(REPLACE [[;]] [[\;]] LIBRARY_PATH "${LIBRARY_PATH}")
+    string(REPLACE [[;]] [[\;]] PYTHON_PATH "${PYTHON_PATH}")
 
     if (BUNDLE_TESTS)
         string(APPEND _content
