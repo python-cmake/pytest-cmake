@@ -4,13 +4,23 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Updated CMake script now interrupts the build if the Python test
+        collection fails.
+
 .. release:: 0.4.1
     :date: 2024-03-17
 
     .. change:: fixed
 
         As of Hatching v1.22, dynamic dependencies during build time must
-        be imported lazily.
+        be imported lazily. Therefore, the backend script has been updated
+        to import 'pytest' only when the build hook is called.
+
+        seealso:: https://hatch.pypa.io/dev/plugins/build-hook/reference/#hatchling.builders.hooks.plugin.interface.BuildHookInterface.dependencies
 
 .. release:: 0.4.0
     :date: 2024-03-03
