@@ -42,28 +42,36 @@ if(CMAKE_SCRIPT_MODE_FILE)
         # Set environment for collecting tests.
         set(ENV{${LIB_ENV_PATH}} "${LIBRARY_PATH}")
         set(ENV{PYTHONPATH} "${PYTHON_PATH}")
+        set(ENV{PYTHONWARNINGS} "ignore")
 
         execute_process(
-            COMMAND ${PYTEST_EXECUTABLE}
+            COMMAND "${PYTEST_EXECUTABLE}"
                 --collect-only -q
                 --rootdir=${WORKING_DIRECTORY} .
-            OUTPUT_VARIABLE _output_list
-            ERROR_VARIABLE _output_list
+            OUTPUT_VARIABLE _output_lines
+            ERROR_VARIABLE _output_lines
             OUTPUT_STRIP_TRAILING_WHITESPACE
             WORKING_DIRECTORY ${WORKING_DIRECTORY}
         )
 
+        string(REGEX MATCH "=+ ERRORS =+(.*)" _error ${_output_lines})
+
+        if (_error)
+            message(${_error})
+            message(FATAL_ERROR "An error occurred during the collection of Python tests.")
+        endif()
+
         # Convert output into list.
-        string(REPLACE [[;]] [[\;]] _output_list "${_output_list}")
-        string(REPLACE "\n" ";" _output_list "${_output_list}")
+        string(REPLACE [[;]] [[\;]] _output_lines "${_output_lines}")
+        string(REPLACE "\n" ";" _output_lines "${_output_lines}")
 
         set(test_pattern "([^:]+)(::([^:]+))?::([^:]+)")
 
-        foreach (test_case ${_output_list})
-            string(REGEX MATCHALL ${test_pattern} _test_case "${test_case}")
+        foreach (line ${_output_lines})
+            string(REGEX MATCHALL ${test_pattern} matching "${line}")
 
             # Ignore lines not identified as a test.
-            if (NOT _test_case)
+            if (NOT matching)
                 continue()
             endif()
 
@@ -82,7 +90,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
             endif()
 
             set(test_name "${TEST_GROUP_NAME}.${test_name}")
-            set(test_case "${WORKING_DIRECTORY}/${test_case}")
+            set(test_case "${WORKING_DIRECTORY}/${line}")
 
             string(APPEND _content
                 "add_test(\n"

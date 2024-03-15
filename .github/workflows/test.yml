@@ -1,79 +1,80 @@
-name: Test
+name: tests
 
 on:
-    push:
-        branches: [ main ]
-    pull_request:
-        branches: [ main ]
+  push:
+    branches: [ main ]
 
-    # Run tests once a week on Sunday.
-    schedule:
-        - cron: "0 6 * * 0"
+  pull_request:
+    branches: [ main ]
+
+  # Run tests once a week on Sunday.
+  schedule:
+    - cron: "0 6 * * 0"
 
 jobs:
-    test:
-        strategy:
-            fail-fast: false
-            matrix:
-                os: [ "ubuntu", "macos", "windows" ]
-                cmake: [ "3.20", "3.29" ]
-                pytest: [ "7", "8" ]
-                python: [ "3.8", "3.11", "3.12" ]
-                bundled: [ false, true ]
+  run-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ "ubuntu", "macos", "windows" ]
+        cmake: [ "3.20", "3.29" ]
+        pytest: [ "7", "8" ]
+        python: [ "3.8", "3.11", "3.12" ]
+        bundled: [ false, true ]
 
-        name: |
-            Pytest v${{ matrix.pytest }}
-            | CMake v${{ matrix.cmake }}
-            | ${{ matrix.os }}-py${{ matrix.python }}
-            | bundled: ${{ matrix.bundled }}
+    name: |
+      Pytest v${{ matrix.pytest }}
+      | CMake v${{ matrix.cmake }}
+      | ${{ matrix.os }}-py${{ matrix.python }}
+      | bundled: ${{ matrix.bundled }}
 
-        runs-on: "${{ matrix.os }}-latest"
+    runs-on: "${{ matrix.os }}-latest"
 
-        env:
-            BUNDLE_PYTHON_TESTS: ${{ matrix.bundled }}
+    env:
+      BUNDLE_PYTHON_TESTS: ${{ matrix.bundled }}
 
-        steps:
-            -   uses: actions/setup-python@v4
-                with:
-                    python-version: "${{ matrix.python }}"
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python }}"
 
-            -   uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-            -   name: Setup cmake
-                uses: jwlawson/actions-setup-cmake@v1.13
-                if: ${{matrix.os != 'windows' || matrix.cmake != '3.20'}}
-                with:
-                    cmake-version: "${{ matrix.cmake }}.x"
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2.0
+        if: ${{matrix.os != 'windows' || matrix.cmake != '3.20'}}
+        with:
+          cmake-version: "${{ matrix.cmake }}.x"
 
-            -   name: Setup cmake (Bump up CMake minimal version for Visual Studio 17 2022)
-                uses: jwlawson/actions-setup-cmake@v1.13
-                if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
-                with:
-                    # Visual Studio 17 2022 requires at least CMake 3.21.
-                    # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
-                    cmake-version: "3.21.x"
+      - name: Setup cmake (Bump up CMake minimal version for Visual Studio 17 2022)
+        uses: jwlawson/actions-setup-cmake@v2.0
+        if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
+        with:
+          # Visual Studio 17 2022 requires at least CMake 3.21.
+          # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
+          cmake-version: "3.21.x"
 
-            -   name: Install Boost Python
-                uses: ./.github/actions/install-boost-python
-                with:
-                    platform: ${{ matrix.os }}
-                    python: $(which python)
+      - name: Install Boost Python
+        uses: ./.github/actions/install-boost-python
+        with:
+          platform: ${{ matrix.os }}
+          python: $(which python)
 
-            -   name: Install pytest + pytest-cmake
-                run: pip install . pytest==${{ matrix.pytest }}.*
+      - name: Install pytest + pytest-cmake
+        run: pip install . pytest==${{ matrix.pytest }}.*
 
-            -   name: Build Example
-                shell: bash
-                run: |
-                    cmake --version
-                    cmake \
-                        -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
-                        -S ./example \
-                        -B ./build
-                    cmake --build ./build --config Release
+      - name: Build Example
+        shell: bash
+        run: |
+          cmake --version
+          cmake \
+            -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
+            -S ./example \
+            -B ./build
+          cmake --build ./build --config Release
 
-            -   name: Run Tests
-                shell: bash
-                working-directory: build
-                run: ctest -VV
+      - name: Run Tests
+        shell: bash
+        working-directory: build
+        run: ctest -VV
 
