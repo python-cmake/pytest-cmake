@@ -4,6 +4,13 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        As of Hatching v1.22, dynamic dependencies during build time must
+        be imported lazily.
+
 .. release:: 0.4.0
     :date: 2024-03-03
 

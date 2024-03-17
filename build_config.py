@@ -1,5 +1,4 @@
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
-import pytest
 
 import pathlib
 import subprocess
@@ -10,6 +9,8 @@ class BuildConfig(BuildHookInterface):
 
     def initialize(self, version, build_data):
         """Execute builder."""
+        import pytest
+
         root = pathlib.Path(__file__).parent.resolve()
         build_path = (root / "build")
         build_path.mkdir(parents=True, exist_ok=True)
