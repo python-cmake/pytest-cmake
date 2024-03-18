@@ -4,6 +4,12 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Fixed CI Deployment script.
+
 .. release:: 0.5.0
     :date: 2024-03-17
 
@@ -21,7 +27,10 @@ Release Notes
         be imported lazily. Therefore, the backend script has been updated
         to import 'pytest' only when the build hook is called.
 
-        seealso:: https://hatch.pypa.io/dev/plugins/build-hook/reference/#hatchling.builders.hooks.plugin.interface.BuildHookInterface.dependencies
+        .. seealso::
+
+            `BuildHookInterface.dependencies
+            <https://hatch.pypa.io/dev/plugins/build-hook/reference/#hatchling.builders.hooks.plugin.interface.BuildHookInterface.dependencies>`_
 
 .. release:: 0.4.0
     :date: 2024-03-03
