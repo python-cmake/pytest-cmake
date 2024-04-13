@@ -4,10 +4,23 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Updated CMake script to ensure that environment variables are
+	preserving the Windows-style path syntax when running the tests.
+
+	.. seealso:: https://github.com/buddly27/pytest-cmake/issues/22
+
+    .. change:: changed
+
+	Improve tests.
+
 .. release:: 0.5.2
     :date: 2024-05-06
 
-   .. change:: fixed
+    .. change:: fixed
 
         Updated test collection logic to ensure that the 'rootdir' is a
         real path. Previously, running the tests from a symlinked directory

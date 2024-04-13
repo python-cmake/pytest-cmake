@@ -60,41 +60,35 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;DEPENDS"
         )
 
-        # Set library path depending on the platform.
+        # Identify library path environment name depending on the platform.
         if (CMAKE_SYSTEM_NAME STREQUAL Windows)
-            set(LIB_ENV_PATH PATH)
-            set(_env_sep "\\\;")
+            set(LIBRARY_ENV_NAME PATH)
         elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
-            set(LIB_ENV_PATH DYLD_LIBRARY_PATH)
-            set(_env_sep ":")
+            set(LIBRARY_ENV_NAME DYLD_LIBRARY_PATH)
         else()
-            set(LIB_ENV_PATH LD_LIBRARY_PATH)
-            set(_env_sep ":")
+            set(LIBRARY_ENV_NAME LD_LIBRARY_PATH)
         endif()
 
-        # Convert all paths into cmake paths.
-        cmake_path(CONVERT "$ENV{${LIB_ENV_PATH}}" TO_CMAKE_PATH_LIST libpath)
-        cmake_path(CONVERT "$ENV{PYTHONPATH}" TO_CMAKE_PATH_LIST pythonpath)
+        # Sanitize all paths for CMake.
+        cmake_path(CONVERT "$ENV{${LIBRARY_ENV_NAME}}" TO_CMAKE_PATH_LIST LIBRARY_PATH)
+        cmake_path(CONVERT "$ENV{PYTHONPATH}" TO_CMAKE_PATH_LIST PYTHON_PATH)
 
-        # Prepend input path to environment variables
+        # Prepend input path to environment variables.
         if (_LIBRARY_PATH_PREPEND)
             list(REVERSE _LIBRARY_PATH_PREPEND)
             foreach (_path ${_LIBRARY_PATH_PREPEND})
-                set(libpath "${_path}" "${libpath}")
+                set(LIBRARY_PATH "${_path}" "${LIBRARY_PATH}")
             endforeach()
         endif()
 
         if (_PYTHON_PATH_PREPEND)
             list(REVERSE _PYTHON_PATH_PREPEND)
             foreach (_path ${_PYTHON_PATH_PREPEND})
-                set(pythonpath "${_path}" "${pythonpath}")
+                set(PYTHON_PATH "${_path}" "${PYTHON_PATH}")
             endforeach()
         endif()
 
-        # Convert list into string.
-        list(JOIN libpath "${_env_sep}" libpath)
-        list(JOIN pythonpath "${_env_sep}" pythonpath)
-
+        # Default working directory to current build path if none is provided.
         if (NOT _WORKING_DIRECTORY)
             set(_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
         endif()
@@ -116,9 +110,9 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "PYTEST_EXECUTABLE=${PYTEST_EXECUTABLE}"
             -D "TEST_GROUP_NAME=${NAME}"
             -D "BUNDLE_TESTS=${_BUNDLE_TESTS}"
-            -D "LIB_ENV_PATH=${LIB_ENV_PATH}"
-            -D "LIBRARY_PATH=${libpath}"
-            -D "PYTHON_PATH=${pythonpath}"
+            -D "LIBRARY_ENV_NAME=${LIBRARY_ENV_NAME}"
+            -D "LIBRARY_PATH=${LIBRARY_PATH}"
+            -D "PYTHON_PATH=${PYTHON_PATH}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
             -D "ENVIRONMENT=${_ENVIRONMENT}"
