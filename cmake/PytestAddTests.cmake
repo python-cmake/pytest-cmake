@@ -6,10 +6,17 @@ if(CMAKE_SCRIPT_MODE_FILE)
     # Set Cmake test file to execute each test.
     set(_content "")
 
-    # Ensure that list environment variables are
-    # represented as a string on Windows.
-    string(REPLACE [[;]] [[\;]] LIBRARY_PATH "${LIBRARY_PATH}")
-    string(REPLACE [[;]] [[\;]] PYTHON_PATH "${PYTHON_PATH}")
+    cmake_path(CONVERT "${LIBRARY_PATH}" TO_NATIVE_PATH_LIST LIBRARY_PATH)
+    cmake_path(CONVERT "${PYTHON_PATH}" TO_NATIVE_PATH_LIST PYTHON_PATH)
+
+    # Serialize path values separated by semicolons (required on Windows).
+    macro(encode_value VARIABLE_NAME)
+        string(REPLACE [[\]] [[\\]] ${VARIABLE_NAME} "${${VARIABLE_NAME}}")
+        string(REPLACE [[;]] [[\\;]] ${VARIABLE_NAME} "${${VARIABLE_NAME}}")
+    endmacro()
+
+    encode_value(LIBRARY_PATH)
+    encode_value(PYTHON_PATH)
 
     if (BUNDLE_TESTS)
         string(APPEND _content
@@ -19,7 +26,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
             ")\n"
             "set_tests_properties(\n"
             "     \"${TEST_GROUP_NAME}\" PROPERTIES\n"
-            "     ENVIRONMENT \"${LIB_ENV_PATH}=${LIBRARY_PATH}\"\n"
+            "     ENVIRONMENT \"${LIBRARY_ENV_NAME}=${LIBRARY_PATH}\"\n"
             ")\n"
             "set_tests_properties(\n"
             "     \"${TEST_GROUP_NAME}\"\n"
@@ -29,6 +36,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         )
 
         foreach(env ${ENVIRONMENT})
+            encode_value(env)
             string(APPEND _content
                 "set_tests_properties(\n"
                 "     \"${TEST_GROUP_NAME}\"\n"
@@ -40,7 +48,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
 
     else()
         # Set environment for collecting tests.
-        set(ENV{${LIB_ENV_PATH}} "${LIBRARY_PATH}")
+        set(ENV{${LIBRARY_ENV_NAME}} "${LIBRARY_PATH}")
         set(ENV{PYTHONPATH} "${PYTHON_PATH}")
         set(ENV{PYTHONWARNINGS} "ignore")
 
@@ -99,7 +107,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
                 ")\n"
                 "set_tests_properties(\n"
                 "     \"${test_name}\" PROPERTIES\n"
-                "     ENVIRONMENT \"${LIB_ENV_PATH}=${LIBRARY_PATH}\"\n"
+                "     ENVIRONMENT \"${LIBRARY_ENV_NAME}=${LIBRARY_PATH}\"\n"
                 ")\n"
                 "set_tests_properties(\n"
                 "     \"${test_name}\"\n"
@@ -109,6 +117,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
             )
 
             foreach(env ${ENVIRONMENT})
+                encode_value(env)
                 string(APPEND _content
                     "set_tests_properties(\n"
                     "     \"${test_name}\"\n"

@@ -2,7 +2,7 @@ name: tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
 
   pull_request:
     branches: [ main ]
@@ -16,17 +16,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ "ubuntu", "macos", "windows" ]
-        cmake: [ "3.20", "3.29" ]
         pytest: [ "7", "8" ]
+        cmake: [ "3.20", "3.29" ]
+        os: [ "ubuntu", "macos", "windows" ]
         python: [ "3.8", "3.11", "3.12" ]
         bundled: [ false, true ]
 
     name: |
-      Pytest v${{ matrix.pytest }}
-      | CMake v${{ matrix.cmake }}
-      | ${{ matrix.os }}-py${{ matrix.python }}
-      | bundled: ${{ matrix.bundled }}
+      v${{ matrix.pytest }}-${{ matrix.cmake }}
+      [${{ matrix.os }}-py${{ matrix.python }}]
+      ${{ matrix.bundled && '(bundled)' || '' }}
 
     runs-on: "${{ matrix.os }}-latest"
 
@@ -64,17 +63,12 @@ jobs:
         run: pip install . pytest==${{ matrix.pytest }}.*
 
       - name: Build Example
-        shell: bash
         run: |
           cmake --version
-          cmake \
-            -DCMAKE_MODULE_PATH:FILEPATH="$(pwd)" \
-            -S ./example \
-            -B ./build
+          cmake -D "CMAKE_MODULE_PATH:FILEPATH=${{ github.workspace }}" -S ./example -B ./build
           cmake --build ./build --config Release
 
       - name: Run Tests
-        shell: bash
         working-directory: build
-        run: ctest -VV
+        run: ctest -VV -C Release
 
