@@ -1,25 +1,28 @@
-# -*- coding: utf-8 -*-
-
-import example
+import foo
 
 
 def test_greet_world():
     """Greet the world."""
-    assert example.greet() == "hello, world"
+    assert foo.greet() == "hello, world"
 
 
 def test_greet_john():
     """Greet John."""
-    assert example.greet("John") == "hello, John"
+    assert foo.greet("John") == "hello, John"
 
 
 def test_greet_julia():
     """Greet Julia."""
-    assert example.greet("Julia") == "hello, Julia"
+    assert foo.greet("Julia") == "hello, Julia"
 
 
 def test_greet_julia_french(monkeypatch):
     """Greet Julia in French."""
-    monkeypatch.delenv("GREETING_WORD")
-    assert example.greet("Julia") == "bonjour, Julia"
+    monkeypatch.delenv("DEFAULT_LANGUAGE")
+    assert foo.greet("Julia") == "bonjour, Julia"
 
+
+def test_greet_julia_spanish(monkeypatch):
+    """Greet Julia in Spanish."""
+    monkeypatch.setenv("DEFAULT_LANGUAGE", "es")
+    assert foo.greet("Julia") == "hola, Julia"

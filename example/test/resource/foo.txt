@@ -1,0 +1,3 @@
+en:hello
+fr:bonjour
+es:hola

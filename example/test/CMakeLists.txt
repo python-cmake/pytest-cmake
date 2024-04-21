@@ -1,13 +1,13 @@
 pytest_discover_tests(
     PythonTest
     LIBRARY_PATH_PREPEND
-        $ENV{RUNNER_TEMP}
-        $<TARGET_FILE_DIR:example>
+        $<TARGET_FILE_DIR:foo>
+        $<TARGET_FILE_DIR:pyFoo>
     PYTHON_PATH_PREPEND
-        $ENV{RUNNER_TEMP}
-        $<TARGET_FILE_DIR:example>
+        $<TARGET_FILE_DIR:pyFoo>
     TRIM_FROM_NAME "^test_"
-    DEPENDS example
+    DEPENDS foo pyFoo
     ENVIRONMENT
-        "GREETING_WORD=hello"
+        "DEFAULT_LANGUAGE=en"
+        "FOO_SETTINGS_FILE=${CMAKE_CURRENT_SOURCE_DIR}/resource/foo.txt"
 )

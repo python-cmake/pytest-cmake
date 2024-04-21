@@ -1,18 +1,21 @@
 #include <boost/python.hpp>
+#include <foo.h>
 
 #include <cstdlib>
 #include <string>
 
 std::string greet(std::string name)
 {
-    const char* value = std::getenv("GREETING_WORD");
+    Foo foo;
+
+    const char* value = std::getenv("DEFAULT_LANGUAGE");
     if (value != nullptr)
-        return std::string(value) + ", " + name;
+        return foo.sayHello(value) + ", " + name;
     else
-        return "bonjour, " + name;
+        return foo.sayHello("fr") + ", " + name;
 }
 
-BOOST_PYTHON_MODULE(example)
+BOOST_PYTHON_MODULE(foo)
 {
     using namespace boost::python;
     Py_Initialize();

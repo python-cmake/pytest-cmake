@@ -6,6 +6,10 @@ find_package(Python COMPONENTS Interpreter Development REQUIRED)
 set(_py_version ${Python_VERSION_MAJOR}${Python_VERSION_MINOR})
 mark_as_advanced(_py_version)
 
+if (WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
+
 find_package(Boost 1.70.0 COMPONENTS "python${_py_version}" REQUIRED)
 
 if (NOT TARGET Boost::python)
