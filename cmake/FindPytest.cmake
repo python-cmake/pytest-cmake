@@ -99,6 +99,8 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             set(_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
         endif()
 
+        get_filename_component(_WORKING_DIRECTORY "${_WORKING_DIRECTORY}" REALPATH)
+
         # Override option by environment variable if available.
         if (DEFINED ENV{BUNDLE_PYTHON_TESTS})
             set(_BUNDLE_TESTS $ENV{BUNDLE_PYTHON_TESTS})
