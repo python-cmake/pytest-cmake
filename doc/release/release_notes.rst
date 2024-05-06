@@ -4,6 +4,16 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+   .. change:: fixed
+
+        Updated test collection logic to ensure that the 'rootdir' is a
+        real path. Previously, running the tests from a symlinked directory
+        could result in errors when discovering 'conftests' configurations.
+
+        .. seealso:: https://github.com/pytest-dev/pytest/issues/12291
+
 .. release:: 0.5.1
     :date: 2024-03-17
 
