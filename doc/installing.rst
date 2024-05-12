@@ -38,10 +38,10 @@ Installing from source
 
 You can also install the configuration manually from the source for more
 control. First, obtain a copy of the source by either downloading the
-`zipball <https://github.com/buddly27/pytest-cmake/archive/main.zip>`_ or
+`zipball <https://github.com/python-cmake/pytest-cmake/archive/main.zip>`_ or
 cloning the public repository::
 
-    git clone git@github.com:buddly27/pytest-cmake.git
+    git clone git@github.com:python-cmake/pytest-cmake.git
 
 Then you can build and install the package into your current Python
 environment::
@@ -101,7 +101,7 @@ code can be added before invoking the :term:`find_package` function:
 
 .. code-block:: cmake
 
-    set(pytest_url https://github.com/buddly27/pytest-cmake/archive/main.zip)
+    set(pytest_url https://github.com/python-cmake/pytest-cmake/archive/main.zip)
 
     # Fetch CMake files from the main branch of the Github repository
     file(DOWNLOAD ${pytest_url} ${CMAKE_BINARY_DIR}/pytest.zip)

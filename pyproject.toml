@@ -36,6 +36,12 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
+[project.urls]
+Documentation = "https://python-cmake.github.io/pytest-cmake"
+Repository = "https://github.com/python-cmake/pytest-cmake"
+Issues = "https://github.com/python-cmake/pytest-cmake/issues"
+Changelog = "https://python-cmake.github.io/pytest-cmake/release/release_notes.html"
+
 [tool.hatch.build.hooks.custom]
 require-runtime-dependencies = true
 path = "build_config.py"

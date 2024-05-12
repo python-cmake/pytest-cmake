@@ -4,11 +4,15 @@
 
 import re
 import pathlib
+import sys
+
+root = pathlib.Path(__file__).parent.resolve()
+sys.path.insert(0, str(root / "_extensions"))
 
 # -- General ------------------------------------------------------------------
 
 # Extensions.
-extensions = ["lowdown", "sphinx.ext.intersphinx"]
+extensions = ["changelog", "sphinx.ext.intersphinx"]
 
 # The suffix of source filenames.
 source_suffix = ".rst"
@@ -22,7 +26,6 @@ copyright = u"2022, Jeremy Retailleau"
 
 # Version
 pattern = r"version = \"([\d\\.]+)\""
-root = pathlib.Path(__file__).parent.resolve()
 config = (root.parent / "pyproject.toml").read_text(encoding="utf-8")
 
 version = re.search(pattern, config, re.DOTALL).group(1)
@@ -31,8 +34,9 @@ release = version
 # -- HTML output --------------------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
-
-# If True, copy source rst files to output for reference.
+html_favicon = "favicon.ico"
+html_static_path = ["_static"]
+html_css_files = ["style.css"]
 html_copy_source = True
 
 # -- Intersphinx --------------------------------------------------------------

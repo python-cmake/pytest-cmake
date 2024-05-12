@@ -12,7 +12,7 @@ Release Notes
         Updated CMake script to ensure that environment variables are
 	preserving the Windows-style path syntax when running the tests.
 
-	.. seealso:: https://github.com/buddly27/pytest-cmake/issues/22
+	.. seealso:: https://github.com/python-cmake/pytest-cmake/issues/22
 
     .. change:: changed
 
