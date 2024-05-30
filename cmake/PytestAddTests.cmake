@@ -86,15 +86,16 @@ if(CMAKE_SCRIPT_MODE_FILE)
             set(_class ${CMAKE_MATCH_3})
             set(_func ${CMAKE_MATCH_4})
 
+            if (TRIM_FROM_NAME)
+                set(pattern "${TRIM_FROM_NAME}")
+                string(REGEX REPLACE "${pattern}" "" _class "${_class}")
+                string(REGEX REPLACE "${pattern}" "" _func "${_func}")
+            endif()
+
             if (_class)
                 set(test_name "${_class}.${_func}")
             else()
                 set(test_name "${_func}")
-            endif()
-
-            if (TRIM_FROM_NAME)
-                string(REGEX REPLACE
-                        "${TRIM_FROM_NAME}" "" test_name "${test_name}")
             endif()
 
             set(test_name "${TEST_GROUP_NAME}.${test_name}")

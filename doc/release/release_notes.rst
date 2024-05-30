@@ -4,19 +4,26 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Updated CMake script to enable the trimming of class and method
+        names on discovered tests.
+
 .. release:: 0.6.0
     :date: 2024-05-11
 
     .. change:: changed
 
         Updated CMake script to ensure that environment variables are
-	preserving the Windows-style path syntax when running the tests.
+        preserving the Windows-style path syntax when running the tests.
 
-	.. seealso:: https://github.com/python-cmake/pytest-cmake/issues/22
+        .. seealso:: https://github.com/python-cmake/pytest-cmake/issues/22
 
     .. change:: changed
 
-	Improve tests.
+        Improve tests.
 
 .. release:: 0.5.2
     :date: 2024-05-06

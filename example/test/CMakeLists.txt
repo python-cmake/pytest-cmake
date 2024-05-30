@@ -5,7 +5,7 @@ pytest_discover_tests(
         $<TARGET_FILE_DIR:pyFoo>
     PYTHON_PATH_PREPEND
         $<TARGET_FILE_DIR:pyFoo>
-    TRIM_FROM_NAME "^test_"
+    TRIM_FROM_NAME "^(Test|test_)"
     DEPENDS foo pyFoo
     ENVIRONMENT
         "DEFAULT_LANGUAGE=en"
