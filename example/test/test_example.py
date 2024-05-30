@@ -16,13 +16,15 @@ def test_greet_julia():
     assert foo.greet("Julia") == "hello, Julia"
 
 
-def test_greet_julia_french(monkeypatch):
-    """Greet Julia in French."""
-    monkeypatch.delenv("DEFAULT_LANGUAGE")
-    assert foo.greet("Julia") == "bonjour, Julia"
+class TestLanguage:
+    """Bundle language tests."""
 
+    def test_greet_french(self, monkeypatch):
+        """Greet Julia in French."""
+        monkeypatch.delenv("DEFAULT_LANGUAGE")
+        assert foo.greet("Julia") == "bonjour, Julia"
 
-def test_greet_julia_spanish(monkeypatch):
-    """Greet Julia in Spanish."""
-    monkeypatch.setenv("DEFAULT_LANGUAGE", "es")
-    assert foo.greet("Julia") == "hola, Julia"
+    def test_greet_spanish(self, monkeypatch):
+        """Greet Julia in Spanish."""
+        monkeypatch.setenv("DEFAULT_LANGUAGE", "es")
+        assert foo.greet("Julia") == "hola, Julia"
