@@ -12,12 +12,12 @@ versions on Linux, macOS or Windows using the
 function:
 
 ```cmake
-find_package(Pytest 4.6.11 REQUIRED)
+find_package(Pytest 8.2.1 REQUIRED)
 ```
 
 A ``pytest_discover_tests`` function is provided to simplify automatic
 testing for C++ projects with Python bindings. It can create CTest tests
-for each Python test collected within a correct environment:
+for each Python test collected within a controlled environment:
 
 ```cmake
 pytest_discover_tests(

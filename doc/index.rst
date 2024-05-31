@@ -11,7 +11,9 @@ Discover and run Python tests for :term:`Pytest` with :term:`CMake`.
 
     introduction
     installing
-    getting_started
+    integration
+    tutorial
+    api_reference
     environment_variables
     release/index
     glossary

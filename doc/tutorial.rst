@@ -1,33 +1,13 @@
-.. _getting_started:
+.. _tutorial:
 
-***************
-Getting Started
-***************
+********
+Tutorial
+********
 
-Once :ref:`installed <installing>`, the package integration within a
-:term:`CMake` project can be done using the :term:`find_package` function:
+Once :ref:`integrated in your project <integration>`, the ``Pytest::Pytest``
+target and the :func:`pytest_discover_tests` function are available for using.
 
-.. code-block:: cmake
-
-    find_package(Pytest REQUIRED)
-
-A specific range of versions can be targeted:
-
-.. code-block:: cmake
-
-    # Request Pytest version 7.2.0.
-    find_package(Pytest 7.2.0 EXACT REQUIRED)
-
-    # Request Pytest between version 6.0.0 and 7.2.0 included.
-    find_package(Pytest 6.0.0...7.2.0 REQUIRED)
-
-    # Request any version of Pytest over 4.6.11.
-    find_package(Pytest 4.6.11 REQUIRED)
-
-This will expose the ``Pytest::Pytest`` target and the ``pytest_discover_tests``
-function to the project.
-
-.. _getting_started/target:
+.. _tutorial/target:
 
 Using the target
 ================
@@ -89,7 +69,7 @@ as failed.
         Start 1: PythonTest
     1/1 Test #1: PythonTest .......................***Failed    0.47 sec
 
-.. _getting_started/function:
+.. _tutorial/function:
 
 Using the function
 ==================
@@ -118,29 +98,15 @@ and ``PYTHON_PATH_PREPEND`` arguments, which both accept multiple values. The
 environment variable used to locate shared libraries will be automatically
 chosen according to the platform.
 
-.. note::
-
-    The ``ENVIRONMENT`` argument can be used to set custom environment variables
-    for the tests.
-
-    .. code-block:: cmake
-
-        pytest_discover_tests(
-            ...
-            ENVIRONMENT
-                "ENV_VAR1=VALUE1"
-                "ENV_VAR2=VALUE2"
-                "ENV_VAR3=VALUE3"
-        )
-
 Pytest usually requires tests to start with a
-`specific prefix <https://docs.pytest.org/en/latest/explanation/goodpractices.html>`_,
+`specific prefix
+<https://docs.pytest.org/en/latest/explanation/goodpractices.html>`_,
 which can be trimmed using the ``TRIM_FROM_NAME`` argument. The value can use a
 `regular expression <https://en.wikipedia.org/wiki/Regular_expression>`_ to
 match the part of the test name that should be trimmed.
 
-A list of dependent targets can be defined with the ``DEPENDS`` argument, which accepts
-multiple values.
+A list of dependent targets can be defined with the ``DEPENDS`` argument, which
+accepts multiple values.
 
 After building the project, running :term:`CTest` will display the tests as
 follows:
@@ -156,11 +122,10 @@ follows:
         Start 4: PythonTest.greet_michael
     4/4 Test #4: PythonTest.greet_michael .........   Passed    0.54 sec
 
-It is also possible to re-group all tests under one :term:`CTest` test, as
-was the case when :ref:`using the target <getting_started/target>`. This can be
-useful to ensure that the tests run faster in case you use
-`fixtures <https://docs.pytest.org/en/latest/explanation/fixtures.html>`_
-with a broader scope.
+It is also possible to regroup all tests under one :term:`CTest` test, as
+was the case when :ref:`using the target <tutorial/target>`. This can be
+useful during development to ensure that the tests run faster, especially
+if you use :term:`fixtures <fixture>` with a broader scope.
 
 This can be done by setting the ``BUNDLE_TESTS`` argument to True:
 

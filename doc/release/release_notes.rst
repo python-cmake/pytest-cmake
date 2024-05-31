@@ -11,6 +11,10 @@ Release Notes
         Updated CMake script to enable the trimming of class and method
         names on discovered tests.
 
+    .. change:: changed
+
+        Updated documentation.
+
 .. release:: 0.6.0
     :date: 2024-05-11
 
@@ -90,7 +94,7 @@ Release Notes
         Added ``ENVIRONMENT`` argument to the :func:`pytest_discover_tests`
         function to provide custom environment variables during the tests.
 
-        .. seealso:: :ref:`getting_started/function`
+        .. seealso:: :ref:`tutorial/function`
 
 .. release:: 0.2.1
     :date: 2023-01-20

@@ -11,7 +11,7 @@ versions on Linux, macOS or Windows using the `find_package
 
 .. code-block:: cmake
 
-    find_package(Pytest 4.6.11 REQUIRED)
+    find_package(Pytest 8.2.1 REQUIRED)
 
 A :func:`pytest_discover_tests` function is provided to simplify automatic
 testing for C++ projects with Python bindings. It can create :term:`CTest` tests
@@ -42,4 +42,4 @@ Running the tests will display the status for each test collected as follows:
         Start 4: PythonTest.greet_michael
     4/4 Test #4: PythonTest.greet_michael .........   Passed    0.54 sec
 
-.. seealso:: :ref:`getting_started`
+.. seealso:: :ref:`tutorial`

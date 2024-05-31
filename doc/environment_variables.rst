@@ -11,7 +11,12 @@ Environment variables directly defined or referenced by this package.
     Environment variable used to dynamically set a value for the
     ``BUNDLE_TESTS`` argument of the :func:`pytest_discover_tests` function.
 
-    .. seealso:: :ref:`Using 'pytest_discover_tests' <getting_started/function>`
+.. envvar:: CMAKE_PREFIX_PATH
+
+    Environment variable (or :term:`CMake` option) used to locate directory
+    to look for configurations.
+
+    .. seealso:: https://cmake.org/cmake/help/latest/envvar/CMAKE_PREFIX_PATH.html
 
 .. envvar:: LD_LIBRARY_PATH
 

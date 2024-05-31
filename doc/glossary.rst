@@ -45,6 +45,11 @@ Glossary
 
         .. seealso:: https://cmake.org/cmake/help/latest/command/find_package.html
 
+    fixture
+        A :term:`Pytest` fixture provides a fixed setup and teardown for tests.
+
+        .. seealso:: https://docs.pytest.org/en/latest/explanation/fixtures.html
+
     Pip
         Pip is a package-management system written for Python.
 
@@ -54,14 +59,3 @@ Glossary
         Python testing framework.
 
         .. seealso:: https://docs.pytest.org/
-
-    reStructuredText
-        Lightweight markup language.
-
-        .. seealso:: https://docutils.sourceforge.io/rst.html
-
-    Sphinx
-        Python documentation generator which converts :term:`reStructuredText`
-        files into HTML and other formats.
-
-        .. seealso:: https://www.sphinx-doc.org/
