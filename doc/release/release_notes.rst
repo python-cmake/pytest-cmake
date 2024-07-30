@@ -4,6 +4,15 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Improved the :func:`pytest_discover_tests` function to use an
+        intermediate CMake script during :term:`CTest` runs. This update
+        enables partial builds that exclude the corresponding CMake target
+        to be executed and tested.
+
 .. release:: 0.7.0
     :date: 2024-05-31
 

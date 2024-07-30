@@ -100,6 +100,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             set(_BUNDLE_TESTS $ENV{BUNDLE_PYTHON_TESTS})
         endif()
 
+        set(_include_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_include.cmake")
         set(_tests_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_tests.cmake")
 
         add_custom_target(
@@ -120,9 +121,17 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")
 
+          file(WRITE "${_include_file}"
+              "if(EXISTS \"${_tests_file}\")\n"
+              "    include(\"${_tests_file}\")\n"
+              "else()\n"
+              "    add_test(${NAME}_NOT_BUILT ${NAME}_NOT_BUILT)\n"
+              "endif()\n"
+          )
+
         # Add discovered tests to directory TEST_INCLUDE_FILES
         set_property(DIRECTORY
-            APPEND PROPERTY TEST_INCLUDE_FILES "${_tests_file}")
+            APPEND PROPERTY TEST_INCLUDE_FILES "${_include_file}")
 
     endfunction()
 
