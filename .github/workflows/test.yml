@@ -56,16 +56,21 @@ jobs:
       - name: Install Boost Python
         uses: ./.github/actions/install-boost-python
         with:
-          platform: ${{ matrix.os }}
-          python: $(which python)
+          python: ${{ matrix.python }}
+          path: ${{ runner.temp }}
 
       - name: Install pytest + pytest-cmake
-        run: pip install . pytest==${{ matrix.pytest }}.*
+        run: python3 -m pip install . pytest==${{ matrix.pytest }}.*
 
       - name: Build Example
+        shell: bash
         run: |
           cmake --version
-          cmake -D "CMAKE_MODULE_PATH:FILEPATH=${{ github.workspace }}" -S ./example -B ./build
+          cmake \
+              -D "CMAKE_BUILD_TYPE=Release" \
+              -D "Boost_ROOT=${{ runner.temp }}" \
+              -S ./example \
+              -B ./build
           cmake --build ./build --config Release
 
       - name: Run Tests
