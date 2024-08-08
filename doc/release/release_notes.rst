@@ -4,6 +4,14 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Ensure that the 'PYTEST_EXECUTABLE' variable is correctly serialized
+        when the tests are created to handle cases where the path might
+        contain spaces or special characters.
+
 .. release:: 0.8.0
     :date: 2024-08-01
 
