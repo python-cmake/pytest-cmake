@@ -22,7 +22,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         string(APPEND _content
             "add_test(\n"
             "    \"${TEST_GROUP_NAME}\"\n"
-            "    ${PYTEST_EXECUTABLE} \"${WORKING_DIRECTORY}\"\n"
+            "    \"${PYTEST_EXECUTABLE}\" \"${WORKING_DIRECTORY}\"\n"
             ")\n"
             "set_tests_properties(\n"
             "     \"${TEST_GROUP_NAME}\" PROPERTIES\n"
@@ -104,7 +104,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
             string(APPEND _content
                 "add_test(\n"
                 "    \"${test_name}\"\n"
-                "    ${PYTEST_EXECUTABLE} \"${test_case}\"\n"
+                "    \"${PYTEST_EXECUTABLE}\" \"${test_case}\"\n"
                 ")\n"
                 "set_tests_properties(\n"
                 "     \"${test_name}\" PROPERTIES\n"
