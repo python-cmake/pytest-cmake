@@ -60,7 +60,7 @@ class CreateCmakeConfig(install):
 
 setup(
     name="pytest-cmake",
-    version="0.8.1",
+    version="0.8.2",
     data_files=[
         (
             "share/Pytest/cmake",
