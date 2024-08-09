@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         pytest: [ "7", "8" ]
-        cmake: [ "3.20", "3.29" ]
+        cmake: [ "3.20", "3.30" ]
         os: [ "ubuntu", "macos", "windows" ]
         python: [ "3.8", "3.11", "3.12" ]
         bundled: [ false, true ]
