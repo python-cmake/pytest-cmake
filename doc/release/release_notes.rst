@@ -4,6 +4,12 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Added compatibility with CMake 3.30.
+
 .. release:: 0.8.1
     :date: 2024-08-08
 
