@@ -4,6 +4,14 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Fixed the :func:`pytest_discover_tests` function by serializing
+        the `ENVIRONMENT` entries before transferring them to the
+        intermediate script.
+
 .. release:: 0.8.2
     :date: 2024-08-09
 
