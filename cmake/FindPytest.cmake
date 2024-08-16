@@ -100,6 +100,14 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             set(_BUNDLE_TESTS $ENV{BUNDLE_PYTHON_TESTS})
         endif()
 
+	# Serialize environment if necessary.
+	set(ENCODED_ENVIRONMENT "")
+	foreach(env ${_ENVIRONMENT})
+            string(REPLACE [[\]] [\\]] env ${env})
+	    string(REPLACE [[;]] [\\;]] env ${env})
+	    list(APPEND ENCODED_ENVIRONMENT ${env})
+	endforeach()
+
         set(_include_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_include.cmake")
         set(_tests_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_tests.cmake")
 
@@ -116,7 +124,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "PYTHON_PATH=${PYTHON_PATH}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
-            -D "ENVIRONMENT=${_ENVIRONMENT}"
+	    -D "ENVIRONMENT=${ENCODED_ENVIRONMENT}"
             -D "PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}"
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")

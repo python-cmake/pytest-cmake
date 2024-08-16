@@ -36,7 +36,6 @@ if(CMAKE_SCRIPT_MODE_FILE)
         )
 
         foreach(env ${ENVIRONMENT})
-            encode_value(env)
             string(APPEND _content
                 "set_tests_properties(\n"
                 "     \"${TEST_GROUP_NAME}\"\n"
@@ -118,7 +117,6 @@ if(CMAKE_SCRIPT_MODE_FILE)
             )
 
             foreach(env ${ENVIRONMENT})
-                encode_value(env)
                 string(APPEND _content
                     "set_tests_properties(\n"
                     "     \"${test_name}\"\n"
