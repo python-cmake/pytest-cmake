@@ -97,6 +97,9 @@ if(CMAKE_SCRIPT_MODE_FILE)
                 set(test_name "${_func}")
             endif()
 
+            string(REPLACE "[" "." test_name "${test_name}")
+            string(REPLACE "]" "" test_name "${test_name}")
+
             set(test_name "${TEST_GROUP_NAME}.${test_name}")
             set(test_case "${WORKING_DIRECTORY}/${line}")
 
