@@ -4,6 +4,20 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Corrected the CMake version upper bound from 3.30 to 3.31.
+
+    .. change:: changed
+
+        Added documentation for :ref:`installing/deployment`.
+
+    .. change:: changed
+
+        Added link to Github Project in documentation.
+
 .. release:: 0.8.3
     :date: 2024-08-16
 

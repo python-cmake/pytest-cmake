@@ -16,4 +16,5 @@ Discover and run Python tests for :term:`Pytest` with :term:`CMake`.
     api_reference
     environment_variables
     release/index
+    Source Code @ GitHub <https://github.com/python-cmake/pytest-cmake>
     glossary

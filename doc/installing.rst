@@ -59,5 +59,21 @@ Then, build the documentation with the command::
 
 View the result in your browser at::
 
-    file:///path/to/pytest-build/build/doc/html/index.html
+    file:///path/to/sphinx-build/build/doc/html/index.html
 
+.. _installing/deployment:
+
+Package Deployment
+==================
+
+This package is deployed as a source on `PyPi <https://pypi.org/project/pytest-cmake/>`_
+to allow dynamic adaptation of :term:`CMake` scripts based on the version of :term:`Pytest`
+available at installation. Packaging it as a
+`wheel <https://packaging.python.org/en/latest/specifications/binary-distribution-format>`_
+would lock the :term:`Pytest` version detected during the packaging and deployment process,
+reducing flexibility and compatibility with future versions.
+
+If you wish to deploy the package as a source within a custom index, it is important to include
+the build requirements in your environment (e.g. "hatchling" and "cmake").
+
+.. seealso:: `Package Formats <https://packaging.python.org/en/latest/discussions/package-formats>`_
