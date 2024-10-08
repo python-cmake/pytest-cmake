@@ -4,6 +4,15 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Added ``STRIP_PARAM_BRACKETS`` argument to the :func:`pytest_discover_tests`
+        function to strip square brackets used for :term:`parametrizing tests`.
+
+        .. seealso:: :ref:`tutorial/function`
+
 .. release:: 0.8.4
     :date: 2024-10-06
 

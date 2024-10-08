@@ -55,8 +55,8 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
 
     function(pytest_discover_tests NAME)
         cmake_parse_arguments(
-            PARSE_ARGV 1 "" ""
-            "WORKING_DIRECTORY;TRIM_FROM_NAME;BUNDLE_TESTS"
+            PARSE_ARGV 1 "" "STRIP_PARAM_BRACKETS;BUNDLE_TESTS"
+            "WORKING_DIRECTORY;TRIM_FROM_NAME"
             "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;DEPENDS"
         )
 
@@ -123,8 +123,9 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "LIBRARY_PATH=${LIBRARY_PATH}"
             -D "PYTHON_PATH=${PYTHON_PATH}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
+            -D "STRIP_PARAM_BRACKETS=${_STRIP_PARAM_BRACKETS}"
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
-	    -D "ENVIRONMENT=${ENCODED_ENVIRONMENT}"
+            -D "ENVIRONMENT=${ENCODED_ENVIRONMENT}"
             -D "PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}"
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")

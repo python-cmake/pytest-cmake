@@ -97,6 +97,10 @@ if(CMAKE_SCRIPT_MODE_FILE)
                 set(test_name "${_func}")
             endif()
 
+            if (STRIP_PARAM_BRACKETS)
+                string(REGEX REPLACE "\\[(.+)\\]$" ".\\1" test_name "${test_name}")
+            endif()
+
             set(test_name "${TEST_GROUP_NAME}.${test_name}")
             set(test_case "${WORKING_DIRECTORY}/${line}")
 

@@ -50,6 +50,13 @@ Glossary
 
         .. seealso:: https://docs.pytest.org/en/latest/explanation/fixtures.html
 
+    parametrizing tests
+        Parameterized tests in :term:`Pytest` enable the execution of a single test function
+        with multiple sets of input parameters, facilitating the evaluation of different
+        test cases within a unified test structure.
+
+        .. seealso:: https://docs.pytest.org/en/stable/how-to/parametrize.html
+
     Pip
         Pip is a package-management system written for Python.
 
