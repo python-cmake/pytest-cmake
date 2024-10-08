@@ -1,3 +1,5 @@
+import pytest
+
 import foo
 
 
@@ -15,6 +17,13 @@ def test_greet_julia():
     """Greet Julia."""
     assert foo.greet("Julia") == "hello, Julia"
 
+
+@pytest.mark.parametrize("name", [
+    "Alan", "Stephen", "Ford[Perfect]",
+])
+def test_greet(name):
+    """Greet various persons."""
+    assert foo.greet(name) == f"hello, {name}"
 
 class TestLanguage:
     """Bundle language tests."""

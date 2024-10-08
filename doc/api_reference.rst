@@ -18,6 +18,7 @@ API Reference
             [PYTHON_PATH_PREPEND path1 path2...]
             [ENVIRONMENT env1 env2...]
             [DEPENDS target1 target2...]
+            [STRIP_PARAM_BRACKETS]
             [BUNDLE_TESTS]
         )
 
@@ -40,12 +41,28 @@ API Reference
         <https://en.wikipedia.org/wiki/Regular_expression>`_ to trim part of the
         class, method and function names discovered before creating the test.
         This option can be used to trim the convention prefix required by
-        :term:`Pytest` for discovery.::
+        :term:`Pytest` for discovery::
 
             pytest_discover_tests(
                 ...
                 TRIM_FROM_NAME "^(Test|test_)"
             )
+
+    * ``STRIP_PARAM_BRACKETS``
+
+        Remove square brackets added to the test identifier when using
+        :term:`parametrized tests <parametrizing tests>`::
+
+            pytest_discover_tests(
+                ...
+                STRIP_PARAM_BRACKETS
+            )
+
+        Tests identifiers will be reformatted as follows:
+
+        - `test.foo[bar]` becomes `test.foo.bar`
+        - `test.foo[1-3]` becomes `test.foo.1-3`
+        - `test.foo[bar[nested]]` becomes `test.foo.bar[nested]`
 
     * ``LIBRARY_PATH_PREPEND``
 
