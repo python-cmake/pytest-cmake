@@ -1,4 +1,4 @@
-add_library(pyFoo MODULE main.cpp)
+nanobind_add_module(pyFoo main.cpp)
 
 set_target_properties(pyFoo
     PROPERTIES
@@ -8,14 +8,11 @@ set_target_properties(pyFoo
 
 if(WIN32)
     set_target_properties(pyFoo PROPERTIES SUFFIX ".pyd")
+elseif(APPLE)
+    set_target_properties(pyFoo PROPERTIES SUFFIX ".so")
 endif()
 
-target_link_libraries(pyFoo
-    PUBLIC
-        foo
-        Boost::python
-        Python::Python
-)
+target_link_libraries(pyFoo PUBLIC foo)
 
 if (WIN32)
     # As of Python v3.8 and newer, DLLs are no longer searched for in the 

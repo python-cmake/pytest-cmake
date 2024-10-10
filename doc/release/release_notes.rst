@@ -4,6 +4,14 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Replace Boost.Python with nanobind for the example module.
+
+        .. seealso:: https://nanobind.readthedocs.io/en/latest/
+
 .. release:: 0.9.0
     :date: 2024-10-08
 
