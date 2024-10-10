@@ -72,7 +72,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         string(REPLACE [[;]] [[\;]] _output_lines "${_output_lines}")
         string(REPLACE "\n" ";" _output_lines "${_output_lines}")
 
-        set(test_pattern "([^:]+)(::([^:]+))?::([^:]+)")
+        set(test_pattern "([^:]+)\.py(::([^:]+))?::([^:]+)")
 
         foreach (line ${_output_lines})
             string(REGEX MATCHALL ${test_pattern} matching "${line}")
@@ -82,6 +82,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
                 continue()
             endif()
 
+            set(_file ${CMAKE_MATCH_1})
             set(_class ${CMAKE_MATCH_3})
             set(_func ${CMAKE_MATCH_4})
 
@@ -99,6 +100,12 @@ if(CMAKE_SCRIPT_MODE_FILE)
 
             if (STRIP_PARAM_BRACKETS)
                 string(REGEX REPLACE "\\[(.+)\\]$" ".\\1" test_name "${test_name}")
+            endif()
+
+            if (INCLUDE_FILE_PATH)
+                cmake_path(CONVERT "${_file}" TO_CMAKE_PATH_LIST _file)
+                string(REGEX REPLACE "/" "." _file "${_file}")
+                set(test_name "${_file}.${test_name}")
             endif()
 
             set(test_name "${TEST_GROUP_NAME}.${test_name}")

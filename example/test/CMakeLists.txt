@@ -7,6 +7,7 @@ pytest_discover_tests(
         $<TARGET_FILE_DIR:pyFoo>
     TRIM_FROM_NAME "^(Test|test_)"
     STRIP_PARAM_BRACKETS
+    INCLUDE_FILE_PATH
     DEPENDS foo pyFoo
     ENVIRONMENT
         "DEFAULT_LANGUAGE=en"
