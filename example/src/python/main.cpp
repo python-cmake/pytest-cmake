@@ -1,10 +1,13 @@
-#include <boost/python.hpp>
+#include <nanobind/nanobind.h>
+#include <nanobind/stl/string.h>
 #include <foo.h>
 
 #include <cstdlib>
 #include <string>
 
-std::string greet(std::string name)
+namespace nb = nanobind;
+
+std::string greet(const std::string& name = "world")
 {
     Foo foo;
 
@@ -15,10 +18,7 @@ std::string greet(std::string name)
         return foo.sayHello("fr") + ", " + name;
 }
 
-BOOST_PYTHON_MODULE(foo)
+NB_MODULE(foo, m)
 {
-    using namespace boost::python;
-    Py_Initialize();
-
-    def("greet", greet, arg("name") = "world");
+    m.def("greet", &greet, nb::arg("name") = "world");
 }
