@@ -6,6 +6,25 @@ Release Notes
 
 .. release:: Upcoming
 
+    .. change:: new
+
+        Added ``INCLUDE_FILE_PATH`` option to the :func:`pytest_discover_tests`
+        function use the file path to compute the test identifier.
+
+        .. seealso:: :ref:`tutorial/function`
+
+    .. change:: new
+
+        Added ``TRIM_FROM_FULL_NAME`` option to the :func:`pytest_discover_tests`
+        function trim parts of the full test name generated.
+
+        .. seealso:: :ref:`tutorial/function`
+
+    .. change:: fixed
+
+        Fixed the ``BUNDLE_TESTS`` option to the :func:`pytest_discover_tests`
+        function which was poorly implemented.
+
     .. change:: changed
 
         Replace Boost.Python with nanobind for the example module.
@@ -17,7 +36,7 @@ Release Notes
 
     .. change:: new
 
-        Added ``STRIP_PARAM_BRACKETS`` argument to the :func:`pytest_discover_tests`
+        Added ``STRIP_PARAM_BRACKETS`` option to the :func:`pytest_discover_tests`
         function to strip square brackets used for :term:`parametrizing tests`.
 
         .. seealso:: :ref:`tutorial/function`
@@ -160,7 +179,7 @@ Release Notes
 
     .. change:: new
 
-        Added ``ENVIRONMENT`` argument to the :func:`pytest_discover_tests`
+        Added ``ENVIRONMENT`` option to the :func:`pytest_discover_tests`
         function to provide custom environment variables during the tests.
 
         .. seealso:: :ref:`tutorial/function`
