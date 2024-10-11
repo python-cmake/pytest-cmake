@@ -29,9 +29,6 @@ jobs:
 
     runs-on: "${{ matrix.os }}-latest"
 
-    env:
-      BUNDLE_PYTHON_TESTS: ${{ matrix.bundled }}
-
     steps:
       - uses: actions/setup-python@v5
         with:
@@ -39,13 +36,13 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Setup cmake
+      - name: Setup CMake
         uses: jwlawson/actions-setup-cmake@v2.0
         if: ${{matrix.os != 'windows' || matrix.cmake != '3.20'}}
         with:
           cmake-version: "${{ matrix.cmake }}.x"
 
-      - name: Setup cmake (Bump up CMake minimal version for Visual Studio 17 2022)
+      - name: Setup CMake (Bump up CMake minimal version for Visual Studio 17 2022)
         uses: jwlawson/actions-setup-cmake@v2.0
         if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
         with:
@@ -53,17 +50,25 @@ jobs:
           # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
           cmake-version: "3.21.x"
 
-      - name: Install nanobind + pytest + pytest-cmake
+      - name: Setup Environment
         shell: bash
         run: |
+          cmake --version
           python -m pip install --upgrade pip
           python -m pip install nanobind==2.*
           python -m pip install . pytest==${{ matrix.pytest }}.*
 
-      - name: Configure Example
+      - name: Build and Run Unit Tests
         shell: bash
         run: |
-          cmake --version
+          cmake -D "CMAKE_BUILD_TYPE=Release" -S ./test -B ./test/build
+          cmake --build ./test/build
+
+      - name: Configure Example
+        shell: bash
+        env:
+            BUNDLE_PYTHON_TESTS: ${{ matrix.bundled }}
+        run: |
           cmake \
               -D "CMAKE_BUILD_TYPE=Release" \
               -D "nanobind_ROOT=$(python -m nanobind --cmake_dir)" \
