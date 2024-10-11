@@ -14,10 +14,12 @@ API Reference
         pytest_discover_tests(NAME
             [WORKING_DIRECTORY dir]
             [TRIM_FROM_NAME pattern]
+            [TRIM_FROM_FULL_NAME pattern]
             [LIBRARY_PATH_PREPEND path1 path2...]
             [PYTHON_PATH_PREPEND path1 path2...]
             [ENVIRONMENT env1 env2...]
             [DEPENDS target1 target2...]
+            [INCLUDE_FILE_PATH]
             [STRIP_PARAM_BRACKETS]
             [BUNDLE_TESTS]
         )
@@ -35,17 +37,37 @@ API Reference
         Specify the directory in which to run the :term:`Pytest` command. If
         this option is not provided, the current source directory is used.
 
+    * ``INCLUDE_FILE_PATH``
+
+        Include the file path of each collected :term:`Pytest` test into its generated
+        test name. This helps distinguish tests with the same class or function names
+        by including their source file for clearer identification::
+
+            pytest_discover_tests(
+                ...
+                INCLUDE_FILE_PATH
+            )
+
     * ``TRIM_FROM_NAME``
 
-        Specify a `regular expression
-        <https://en.wikipedia.org/wiki/Regular_expression>`_ to trim part of the
-        class, method and function names discovered before creating the test.
+        Specify a :term:`regular expression` to trim part of each
+        class, method and function name discovered before creating the test.
         This option can be used to trim the convention prefix required by
         :term:`Pytest` for discovery::
 
             pytest_discover_tests(
                 ...
                 TRIM_FROM_NAME "^(Test|test_)"
+            )
+
+    * ``TRIM_FROM_FULL_NAME``
+
+        Specify a :term:`regular expression` to trim parts of the full test name
+        generated::
+
+            pytest_discover_tests(
+                ...
+                TRIM_FROM_FULL_NAME "(Test|test_)"
             )
 
     * ``STRIP_PARAM_BRACKETS``

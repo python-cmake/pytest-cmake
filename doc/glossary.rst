@@ -10,18 +10,6 @@ Glossary
 
         .. seealso:: https://cmake.org/cmake/help/latest/command/add_test.html
 
-    Boost
-        Set of C++ libraries providing features complementary from the standard
-        library.
-
-        .. seealso:: https://www.boost.org/
-
-    Boost Python
-        Component library from :term:`Boost` which is a framework for
-        interfacing Python and C++.
-
-        .. seealso:: https://wiki.python.org/moin/boost.python
-
     CMake
         CMake is a compilation configuration platform that manages the build
         process in an operating system and in a compiler-independent manner.
@@ -50,12 +38,24 @@ Glossary
 
         .. seealso:: https://docs.pytest.org/en/latest/explanation/fixtures.html
 
+    nanobind
+        Nanobind is a fast, minimalistic C++ library designed to create Python
+        bindings for C++ code.
+
+        .. seealso:: https://nanobind.readthedocs.io/en/latest/index.html
+
     parametrizing tests
         Parameterized tests in :term:`Pytest` enable the execution of a single test function
         with multiple sets of input parameters, facilitating the evaluation of different
         test cases within a unified test structure.
 
         .. seealso:: https://docs.pytest.org/en/stable/how-to/parametrize.html
+
+    regular expression
+        A regular expression is a sequence of characters that defines a search pattern,
+        typically used for pattern matching and manipulation within strings.
+
+        .. seealso:: https://en.wikipedia.org/wiki/Regular_expression
 
     Pip
         Pip is a package-management system written for Python.
