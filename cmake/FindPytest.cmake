@@ -56,7 +56,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
     function(pytest_discover_tests NAME)
         cmake_parse_arguments(
             PARSE_ARGV 1 "" "STRIP_PARAM_BRACKETS;INCLUDE_FILE_PATH;BUNDLE_TESTS"
-            "WORKING_DIRECTORY;TRIM_FROM_NAME"
+            "WORKING_DIRECTORY;TRIM_FROM_NAME;TRIM_FROM_FULL_NAME"
             "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;DEPENDS"
         )
 
@@ -100,13 +100,13 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             set(_BUNDLE_TESTS $ENV{BUNDLE_PYTHON_TESTS})
         endif()
 
-	# Serialize environment if necessary.
-	set(ENCODED_ENVIRONMENT "")
-	foreach(env ${_ENVIRONMENT})
-            string(REPLACE [[\]] [\\]] env ${env})
-	    string(REPLACE [[;]] [\\;]] env ${env})
-	    list(APPEND ENCODED_ENVIRONMENT ${env})
-	endforeach()
+        # Serialize environment if necessary.
+        set(ENCODED_ENVIRONMENT "")
+        foreach(env ${_ENVIRONMENT})
+                string(REPLACE [[\]] [\\]] env ${env})
+            string(REPLACE [[;]] [\\;]] env ${env})
+            list(APPEND ENCODED_ENVIRONMENT ${env})
+        endforeach()
 
         set(_include_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_include.cmake")
         set(_tests_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_tests.cmake")
@@ -123,11 +123,11 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "LIBRARY_PATH=${LIBRARY_PATH}"
             -D "PYTHON_PATH=${PYTHON_PATH}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
+            -D "TRIM_FROM_FULL_NAME=${_TRIM_FROM_FULL_NAME}"
             -D "STRIP_PARAM_BRACKETS=${_STRIP_PARAM_BRACKETS}"
             -D "INCLUDE_FILE_PATH=${_INCLUDE_FILE_PATH}"
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
             -D "ENVIRONMENT=${ENCODED_ENVIRONMENT}"
-            -D "PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}"
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")
 

@@ -61,7 +61,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
             WORKING_DIRECTORY ${WORKING_DIRECTORY}
         )
 
-        string(REGEX MATCH "=+ ERRORS =+(.*)" _error ${_output_lines})
+        string(REGEX MATCH "=+ ERRORS =+(.*)" _error "${_output_lines}")
 
         if (_error)
             message(${_error})
@@ -87,9 +87,8 @@ if(CMAKE_SCRIPT_MODE_FILE)
             set(_func ${CMAKE_MATCH_4})
 
             if (TRIM_FROM_NAME)
-                set(pattern "${TRIM_FROM_NAME}")
-                string(REGEX REPLACE "${pattern}" "" _class "${_class}")
-                string(REGEX REPLACE "${pattern}" "" _func "${_func}")
+                string(REGEX REPLACE "${TRIM_FROM_NAME}" "" _class "${_class}")
+                string(REGEX REPLACE "${TRIM_FROM_NAME}" "" _func "${_func}")
             endif()
 
             if (_class)
@@ -106,6 +105,10 @@ if(CMAKE_SCRIPT_MODE_FILE)
                 cmake_path(CONVERT "${_file}" TO_CMAKE_PATH_LIST _file)
                 string(REGEX REPLACE "/" "." _file "${_file}")
                 set(test_name "${_file}.${test_name}")
+            endif()
+
+            if (TRIM_FROM_FULL_NAME)
+                string(REGEX REPLACE "${TRIM_FROM_FULL_NAME}" "" test_name "${test_name}")
             endif()
 
             set(test_name "${TEST_GROUP_NAME}.${test_name}")
