@@ -41,3 +41,14 @@ ExternalProject_Add(
     INSTALL_COMMAND ""
     TEST_COMMAND ${CMAKE_CTEST_COMMAND} -C Release -VV
 )
+
+ExternalProject_Add(
+    TestProperties
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/05-properties
+    BINARY_DIR ${CMAKE_BINARY_DIR}/_deps/05-properties
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR>
+    INSTALL_COMMAND ""
+    TEST_COMMAND ${CMAKE_CTEST_COMMAND}
+        -C Release -VV
+        -R TestProperties.Validate
+)

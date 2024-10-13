@@ -3,9 +3,9 @@
 # This module defines the following imported targets:
 #     Pytest::Pytest
 #
-# It also exposes the 'pytest_discover_tests' function which adds ctest
-# for each pytest tests. The "BUNDLE_PYTHON_TESTS" environment variable
-# can be used to run all discovered tests all together.
+# It also exposes the 'pytest_discover_tests' function, which adds CTest
+# test for each Pytest test. The "BUNDLE_PYTHON_TESTS" environment variable
+# can be used to run all discovered tests together.
 #
 # Usage:
 #     find_package(Pytest)
@@ -53,14 +53,15 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
         PROPERTIES
             IMPORTED_LOCATION "${PYTEST_EXECUTABLE}")
 
+    # Function to discover pytest tests and add them to CTest.
     function(pytest_discover_tests NAME)
         cmake_parse_arguments(
             PARSE_ARGV 1 "" "STRIP_PARAM_BRACKETS;INCLUDE_FILE_PATH;BUNDLE_TESTS"
             "WORKING_DIRECTORY;TRIM_FROM_NAME;TRIM_FROM_FULL_NAME"
-            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;DEPENDS"
+            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;PROPERTIES;DEPENDS"
         )
 
-        # Identify library path environment name depending on the platform.
+        # Set platform-specific library path environment variable.
         if (CMAKE_SYSTEM_NAME STREQUAL Windows)
             set(LIBRARY_ENV_NAME PATH)
         elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
@@ -69,11 +70,11 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             set(LIBRARY_ENV_NAME LD_LIBRARY_PATH)
         endif()
 
-        # Sanitize all paths for CMake.
+        # Convert paths to CMake-friendly format.
         cmake_path(CONVERT "$ENV{${LIBRARY_ENV_NAME}}" TO_CMAKE_PATH_LIST LIBRARY_PATH)
         cmake_path(CONVERT "$ENV{PYTHONPATH}" TO_CMAKE_PATH_LIST PYTHON_PATH)
 
-        # Prepend input path to environment variables.
+        # Prepend specified paths to the library and Python paths.
         if (_LIBRARY_PATH_PREPEND)
             list(REVERSE _LIBRARY_PATH_PREPEND)
             foreach (_path ${_LIBRARY_PATH_PREPEND})
@@ -88,7 +89,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             endforeach()
         endif()
 
-        # Default working directory to current build path if none is provided.
+        # Set default working directory if none is specified.
         if (NOT _WORKING_DIRECTORY)
             set(_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
         endif()
@@ -100,17 +101,11 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             set(_BUNDLE_TESTS $ENV{BUNDLE_PYTHON_TESTS})
         endif()
 
-        # Serialize environment if necessary.
-        set(ENCODED_ENVIRONMENT "")
-        foreach(env ${_ENVIRONMENT})
-                string(REPLACE [[\]] [\\]] env ${env})
-            string(REPLACE [[;]] [\\;]] env ${env})
-            list(APPEND ENCODED_ENVIRONMENT ${env})
-        endforeach()
-
+        # Define file paths for generated CMake include files.
         set(_include_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_include.cmake")
         set(_tests_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_tests.cmake")
 
+        # Create a custom target to run the tests.
         add_custom_target(
             ${NAME} ALL VERBATIM
             BYPRODUCTS "${_tests_file}"
@@ -127,7 +122,8 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "STRIP_PARAM_BRACKETS=${_STRIP_PARAM_BRACKETS}"
             -D "INCLUDE_FILE_PATH=${_INCLUDE_FILE_PATH}"
             -D "WORKING_DIRECTORY=${_WORKING_DIRECTORY}"
-            -D "ENVIRONMENT=${ENCODED_ENVIRONMENT}"
+            -D "ENVIRONMENT=${_ENVIRONMENT}"
+            -D "TEST_PROPERTIES=${_PROPERTIES}"
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")
 
@@ -139,7 +135,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
               "endif()\n"
           )
 
-        # Add discovered tests to directory TEST_INCLUDE_FILES
+        # Register the include file to be processed for tests.
         set_property(DIRECTORY
             APPEND PROPERTY TEST_INCLUDE_FILES "${_include_file}")
 

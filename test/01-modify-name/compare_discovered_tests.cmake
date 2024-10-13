@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 
 execute_process(
-    COMMAND ${CMAKE_CTEST_COMMAND} --show-only
+    COMMAND ${CMAKE_CTEST_COMMAND}
+        --show-only
+        -R "${TEST_PREFIX}"
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     OUTPUT_VARIABLE test_output
 )

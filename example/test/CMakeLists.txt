@@ -12,6 +12,8 @@ pytest_discover_tests(
     ENVIRONMENT
         "DEFAULT_LANGUAGE=en"
         "FOO_SETTINGS_FILE=${CMAKE_CURRENT_SOURCE_DIR}/resource/foo.txt"
+    PROPERTIES
+        TIMEOUT 120
 )
 
 if (WIN32)

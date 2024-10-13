@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(TestPythonPath)
 
-find_package(Pytest 4.6.11 REQUIRED)
+find_package(Pytest REQUIRED)
 
 enable_testing()
 

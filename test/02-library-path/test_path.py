@@ -1,6 +1,5 @@
 import os
 import platform
-import pytest
 
 PREPENDED_PATH = "@EXPECTED@"
 
