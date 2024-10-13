@@ -14,8 +14,10 @@ Using the target
 
 Let's consider a project that wraps C++ logic with Python bindings. We need to
 add a :file:`CMakeLists.txt` configuration file to include Python tests within
-the same directory. The :term:`Pytest` command can easily be implemented using
-the :term:`add_test` function:
+the same directory.
+
+The :term:`Pytest` command can easily be implemented using the :term:`add_test`
+function:
 
 .. code-block:: cmake
 
@@ -175,6 +177,9 @@ follows:
     3/4 Test #3: PythonTest.greet_julia ...............   Passed    0.47 sec
         Start 4: PythonTest.subfolder.greet_michael
     4/4 Test #4: PythonTest.subfolder.greet_michael ...   Passed    0.54 sec
+
+You can also define custom environment variables and test properties using the
+``ENVIRONMENT`` and ``PROPERTIES`` options, respectively.
 
 It is also possible to regroup all tests under one :term:`CTest` test, as
 was the case when :ref:`using the target <tutorial/target>`. This can be

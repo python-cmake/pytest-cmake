@@ -43,10 +43,10 @@ able to discover the newly installed configuration automatically using its
     option should not be set to False.
 
 When using a Python virtual environment, or if Python is installed in a
-non-standard location, the :envvar:`Pytest_ROOT` environment variable
+non-standard location, the :envvar:`CMAKE_PREFIX_PATH` environment variable
 (or :term:`CMake` option) can be used to guide the discovery process::
 
-    cmake -S . -B ./build -D "Pytest_ROOT=/path/to/python/prefix"
+    cmake -S . -B ./build -D "CMAKE_PREFIX_PATH=/path/to/python/prefix"
 
 This is also necessary when installing the configuration in the
 `Python user directory

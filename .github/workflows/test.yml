@@ -61,7 +61,7 @@ jobs:
       - name: Build and Run Unit Tests
         shell: bash
         run: |
-          cmake -D "CMAKE_BUILD_TYPE=Release" -S ./test -B ./test/build
+          cmake -S ./test -B ./test/build
           cmake --build ./test/build
 
       - name: Configure Example

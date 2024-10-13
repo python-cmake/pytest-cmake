@@ -18,6 +18,7 @@ API Reference
             [LIBRARY_PATH_PREPEND path1 path2...]
             [PYTHON_PATH_PREPEND path1 path2...]
             [ENVIRONMENT env1 env2...]
+            [PROPERTIES prop1 prop2...]
             [DEPENDS target1 target2...]
             [INCLUDE_FILE_PATH]
             [STRIP_PARAM_BRACKETS]
@@ -127,6 +128,19 @@ API Reference
                     "ENV_VAR1=VALUE1"
                     "ENV_VAR2=VALUE2"
                     "ENV_VAR3=VALUE3"
+            )
+
+    * ``PROPERTIES``
+
+        List of custom `test properties
+        <https://cmake.org/cmake/help/latest/manual/cmake-properties.7.html#test-properties>`_
+        to apply for all generated tests::
+
+            pytest_discover_tests(
+                ...
+                PROPERTIES
+                    LABELS "python;unit"
+                    TIMEOUT 120
             )
 
     * ``DEPENDS``

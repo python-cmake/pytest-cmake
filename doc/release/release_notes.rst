@@ -4,22 +4,27 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Added ``PROPERTIES`` option to the :func:`pytest_discover_tests`
+        function, providing custom `test properties
+        <https://cmake.org/cmake/help/latest/manual/cmake-properties.7.html#test-properties>`_
+        for all generated tests.
+
 .. release:: 0.10.0
     :date: 2024-10-11
 
     .. change:: new
 
         Added ``INCLUDE_FILE_PATH`` option to the :func:`pytest_discover_tests`
-        function use the file path to compute the test identifier.
-
-        .. seealso:: :ref:`tutorial/function`
+        function, allowing the file path to be included in the test identifier.
 
     .. change:: new
 
         Added ``TRIM_FROM_FULL_NAME`` option to the :func:`pytest_discover_tests`
-        function trim parts of the full test name generated.
-
-        .. seealso:: :ref:`tutorial/function`
+        function, enabling parts of the full test name to be trimmed.
 
     .. change:: fixed
 
@@ -39,8 +44,6 @@ Release Notes
 
         Added ``STRIP_PARAM_BRACKETS`` option to the :func:`pytest_discover_tests`
         function to strip square brackets used for :term:`parametrizing tests`.
-
-        .. seealso:: :ref:`tutorial/function`
 
 .. release:: 0.8.4
     :date: 2024-10-06
