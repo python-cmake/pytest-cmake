@@ -105,10 +105,9 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
         set(_include_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_include.cmake")
         set(_tests_file "${CMAKE_CURRENT_BINARY_DIR}/${NAME}_tests.cmake")
 
-        # Create a custom target to run the tests.
-        add_custom_target(
-            ${NAME} ALL VERBATIM
-            BYPRODUCTS "${_tests_file}"
+        add_custom_command(
+            VERBATIM
+            OUTPUT "${_tests_file}"
             DEPENDS ${_DEPENDS}
             COMMAND ${CMAKE_COMMAND}
             -D "PYTEST_EXECUTABLE=${PYTEST_EXECUTABLE}"
@@ -126,6 +125,9 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "TEST_PROPERTIES=${_PROPERTIES}"
             -D "CTEST_FILE=${_tests_file}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")
+
+        # Create a custom target to run the tests.
+        add_custom_target(${NAME} ALL DEPENDS ${_tests_file})
 
           file(WRITE "${_include_file}"
               "if(EXISTS \"${_tests_file}\")\n"
