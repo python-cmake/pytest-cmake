@@ -4,6 +4,13 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Updated the :func:`pytest_discover_tests` function to avoid rediscovering tests with
+        every build. Thanks :github_user:`mhx`!
+
 .. release:: 0.11.0
     :date: 2024-10-15
 

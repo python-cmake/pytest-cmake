@@ -12,7 +12,7 @@ sys.path.insert(0, str(root / "_extensions"))
 # -- General ------------------------------------------------------------------
 
 # Extensions.
-extensions = ["changelog", "sphinx.ext.intersphinx"]
+extensions = ["changelog", "github_user", "sphinx.ext.intersphinx"]
 
 # The suffix of source filenames.
 source_suffix = ".rst"
