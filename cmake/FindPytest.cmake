@@ -71,8 +71,16 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
         endif()
 
         # Convert paths to CMake-friendly format.
-        cmake_path(CONVERT "$ENV{${LIBRARY_ENV_NAME}}" TO_CMAKE_PATH_LIST LIBRARY_PATH)
-        cmake_path(CONVERT "$ENV{PYTHONPATH}" TO_CMAKE_PATH_LIST PYTHON_PATH)
+        if(DEFINED ENV{${LIBRARY_ENV_NAME}})
+            cmake_path(CONVERT "$ENV{${LIBRARY_ENV_NAME}}" TO_CMAKE_PATH_LIST LIBRARY_PATH)
+        else()
+            set(LIBRARY_PATH "")
+        endif()
+        if(DEFINED ENV{PYTHONPATH})
+            cmake_path(CONVERT "$ENV{PYTHONPATH}" TO_CMAKE_PATH_LIST PYTHON_PATH)
+        else()
+            set(PYTHON_PATH "")
+        endif()
 
         # Prepend specified paths to the library and Python paths.
         if (_LIBRARY_PATH_PREPEND)
