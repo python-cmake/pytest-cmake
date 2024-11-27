@@ -4,6 +4,16 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Updated scripts to prevent uninitialized variable errors when using `-Werror=dev
+        <https://cmake.org/cmake/help/latest/manual/cmake.1.html#cmdoption-cmake-Werror>`_
+        and `--warn-uninitialized
+        <https://cmake.org/cmake/help/latest/manual/cmake.1.html#cmdoption-cmake-warn-uninitialized>`_
+        options. Thanks :github_user:`corrodedHash`!
+
 .. release:: 0.11.3
     :date: 2025-01-19
 
