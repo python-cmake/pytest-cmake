@@ -22,6 +22,7 @@ set(EXPECTED
     "TestModifyName.Simple.test_addition_with_params[5-5-10]"
     "TestModifyName.Simple.test_addition_with_params[10-5-15]"
     "TestModifyName.Simple.test_addition_with_params[0-0-0]"
+    "TestModifyName.Simple.test_byte_char_conversion[\\x17]"
 )
 add_test(NAME TestModifyName.Validate.Simple
     COMMAND ${CMAKE_COMMAND}
@@ -57,6 +58,7 @@ set(EXPECTED
     "TestModifyName.TrimFromName.addition_with_params[5-5-10]"
     "TestModifyName.TrimFromName.addition_with_params[10-5-15]"
     "TestModifyName.TrimFromName.addition_with_params[0-0-0]"
+    "TestModifyName.TrimFromName.byte_char_conversion[\\x17]"
 )
 add_test(NAME TestModifyName.Validate.TrimFromName
     COMMAND ${CMAKE_COMMAND}
@@ -84,6 +86,7 @@ set(EXPECTED
     "TestModifyName.StripParamBrackets.test_addition_with_params.5-5-10"
     "TestModifyName.StripParamBrackets.test_addition_with_params.10-5-15"
     "TestModifyName.StripParamBrackets.test_addition_with_params.0-0-0"
+    "TestModifyName.StripParamBrackets.test_byte_char_conversion.\\x17"
 )
 add_test(NAME TestModifyName.Validate.StripParamBrackets
     COMMAND ${CMAKE_COMMAND}
@@ -111,6 +114,7 @@ set(EXPECTED
     "TestModifyName.IncludeFilePath.test_math_operations.test_addition_with_params[5-5-10]"
     "TestModifyName.IncludeFilePath.test_math_operations.test_addition_with_params[10-5-15]"
     "TestModifyName.IncludeFilePath.test_math_operations.test_addition_with_params[0-0-0]"
+    "TestModifyName.IncludeFilePath.test_math_operations.test_byte_char_conversion[\\x17]"
 )
 add_test(NAME TestModifyName.Validate.IncludeFilePath
     COMMAND ${CMAKE_COMMAND}
@@ -139,6 +143,7 @@ set(EXPECTED
     "TestModifyName.TrimFromFullName.operations.addition_with_params[5-5-10]"
     "TestModifyName.TrimFromFullName.operations.addition_with_params[10-5-15]"
     "TestModifyName.TrimFromFullName.operations.addition_with_params[0-0-0]"
+    "TestModifyName.TrimFromFullName.operations.byte_char_conversion[\\x17]"
 )
 add_test(NAME TestModifyName.Validate.TrimFromFullName
     COMMAND ${CMAKE_COMMAND}

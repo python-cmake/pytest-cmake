@@ -4,6 +4,13 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Updated the :func:`pytest_discover_tests` function to support special
+        characters in test names and identifiers. Thanks :github_user:`corrodedHash`!
+
 .. release:: 0.11.1
     :date: 2024-10-27
 

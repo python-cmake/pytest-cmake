@@ -13,3 +13,9 @@ def test_subtraction():
 ])
 def test_addition_with_params(a, b, expected):
     assert a + b == expected
+
+@pytest.mark.parametrize("input", [
+    "\x17",
+])
+def test_byte_char_conversion(input):
+    assert ord(input) < 128
