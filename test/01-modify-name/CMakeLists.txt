@@ -6,7 +6,12 @@ find_package(Pytest REQUIRED)
 
 enable_testing()
 
-pytest_discover_tests(TestModifyName.Simple)
+pytest_discover_tests(
+    TestModifyName.Simple
+    DEPENDS
+        strings/test_string_methods.py
+        test_math_operations.py
+)
 set(EXPECTED
     "TestModifyName.Simple.test_inventory_keys"
     "TestModifyName.Simple.test_fruit_quantity[Fruit[banana]=150]"
@@ -22,6 +27,9 @@ set(EXPECTED
     "TestModifyName.Simple.test_addition_with_params[5-5-10]"
     "TestModifyName.Simple.test_addition_with_params[10-5-15]"
     "TestModifyName.Simple.test_addition_with_params[0-0-0]"
+    "TestModifyName.Simple.TestStringMethods.test_strings_addition_with_params[0-0-00]"
+    "TestModifyName.Simple.TestStringMethods.test_strings_addition_with_params[10-5-105]"
+    "TestModifyName.Simple.TestStringMethods.test_strings_addition_with_params[5-5-55]"
 )
 add_test(NAME TestModifyName.Validate.Simple
     COMMAND ${CMAKE_COMMAND}
@@ -30,7 +38,13 @@ add_test(NAME TestModifyName.Validate.Simple
     -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
 )
 
-pytest_discover_tests(TestModifyName.Bundled BUNDLE_TESTS)
+pytest_discover_tests(
+    TestModifyName.Bundled BUNDLE_TESTS
+    DEPENDS
+        strings/test_string_methods.py
+        test_math_operations.py
+
+)
 add_test(NAME TestModifyName.Validate.Bundled
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.Bundled"
@@ -41,6 +55,9 @@ add_test(NAME TestModifyName.Validate.Bundled
 pytest_discover_tests(
     TestModifyName.TrimFromName
     TRIM_FROM_NAME "^(Test|test_)"
+    DEPENDS
+        strings/test_string_methods.py
+        test_math_operations.py
 )
 set(EXPECTED
     "TestModifyName.TrimFromName.inventory_keys"
@@ -57,6 +74,9 @@ set(EXPECTED
     "TestModifyName.TrimFromName.addition_with_params[5-5-10]"
     "TestModifyName.TrimFromName.addition_with_params[10-5-15]"
     "TestModifyName.TrimFromName.addition_with_params[0-0-0]"
+    "TestModifyName.TrimFromName.StringMethods.strings_addition_with_params[0-0-00]"
+    "TestModifyName.TrimFromName.StringMethods.strings_addition_with_params[10-5-105]"
+    "TestModifyName.TrimFromName.StringMethods.strings_addition_with_params[5-5-55]"
 )
 add_test(NAME TestModifyName.Validate.TrimFromName
     COMMAND ${CMAKE_COMMAND}
@@ -68,6 +88,9 @@ add_test(NAME TestModifyName.Validate.TrimFromName
 pytest_discover_tests(
     TestModifyName.StripParamBrackets
     STRIP_PARAM_BRACKETS
+    DEPENDS
+        strings/test_string_methods.py
+        test_math_operations.py
 )
 set(EXPECTED
     "TestModifyName.StripParamBrackets.test_inventory_keys"
@@ -84,6 +107,9 @@ set(EXPECTED
     "TestModifyName.StripParamBrackets.test_addition_with_params.5-5-10"
     "TestModifyName.StripParamBrackets.test_addition_with_params.10-5-15"
     "TestModifyName.StripParamBrackets.test_addition_with_params.0-0-0"
+    "TestModifyName.StripParamBrackets.TestStringMethods.test_strings_addition_with_params.0-0-00"
+    "TestModifyName.StripParamBrackets.TestStringMethods.test_strings_addition_with_params.10-5-105"
+    "TestModifyName.StripParamBrackets.TestStringMethods.test_strings_addition_with_params.5-5-55"
 )
 add_test(NAME TestModifyName.Validate.StripParamBrackets
     COMMAND ${CMAKE_COMMAND}
@@ -95,6 +121,9 @@ add_test(NAME TestModifyName.Validate.StripParamBrackets
 pytest_discover_tests(
     TestModifyName.IncludeFilePath
     INCLUDE_FILE_PATH
+    DEPENDS
+        strings/test_string_methods.py
+        test_math_operations.py
 )
 set(EXPECTED
     "TestModifyName.IncludeFilePath.data.test_sample_data.test_inventory_keys"
@@ -111,6 +140,9 @@ set(EXPECTED
     "TestModifyName.IncludeFilePath.test_math_operations.test_addition_with_params[5-5-10]"
     "TestModifyName.IncludeFilePath.test_math_operations.test_addition_with_params[10-5-15]"
     "TestModifyName.IncludeFilePath.test_math_operations.test_addition_with_params[0-0-0]"
+    "TestModifyName.IncludeFilePath.strings.test_string_methods.TestStringMethods.test_strings_addition_with_params[0-0-00]"
+    "TestModifyName.IncludeFilePath.strings.test_string_methods.TestStringMethods.test_strings_addition_with_params[10-5-105]"
+    "TestModifyName.IncludeFilePath.strings.test_string_methods.TestStringMethods.test_strings_addition_with_params[5-5-55]"
 )
 add_test(NAME TestModifyName.Validate.IncludeFilePath
     COMMAND ${CMAKE_COMMAND}
@@ -123,6 +155,9 @@ pytest_discover_tests(
     TestModifyName.TrimFromFullName
     TRIM_FROM_FULL_NAME "(math_|fruit_|test_)"
     INCLUDE_FILE_PATH
+    DEPENDS
+        strings/test_string_methods.py
+        test_math_operations.py
 )
 set(EXPECTED
     "TestModifyName.TrimFromFullName.data.sample_data.inventory_keys"
@@ -139,6 +174,9 @@ set(EXPECTED
     "TestModifyName.TrimFromFullName.operations.addition_with_params[5-5-10]"
     "TestModifyName.TrimFromFullName.operations.addition_with_params[10-5-15]"
     "TestModifyName.TrimFromFullName.operations.addition_with_params[0-0-0]"
+    "TestModifyName.TrimFromFullName.strings.string_methods.TestStringMethods.strings_addition_with_params[0-0-00]"
+    "TestModifyName.TrimFromFullName.strings.string_methods.TestStringMethods.strings_addition_with_params[10-5-105]"
+    "TestModifyName.TrimFromFullName.strings.string_methods.TestStringMethods.strings_addition_with_params[5-5-55]"
 )
 add_test(NAME TestModifyName.Validate.TrimFromFullName
     COMMAND ${CMAKE_COMMAND}
