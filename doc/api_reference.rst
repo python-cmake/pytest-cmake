@@ -153,6 +153,28 @@ API Reference
                 DEPENDS lib1 lib2
             )
 
+        The  Python files containing :term:`Pytest` tests can also be explicitly
+        set as dependencies, ensuring that the target rebuilds whenever these files
+        are modified::
+
+            pytest_discover_tests(
+                ...
+                DEPENDS
+                    /path/to/test_foo.py
+                    /path/to/test_bar.py
+            )
+
+        For convenience, you can use the `GLOB_RECURSE
+        <https://cmake.org/cmake/help/latest/command/file.html#glob-recurse>`_
+        command to dynamically gather all test files::
+
+            file(GLOB_RECURSE test_files "/path/to/tests/*.py")
+
+            pytest_discover_tests(
+                ...
+                DEPENDS ${test_files}
+            )
+
     * ``BUNDLE_TESTS``
 
         Indicate whether Python tests should be bundled under a single
