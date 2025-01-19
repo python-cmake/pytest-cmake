@@ -4,7 +4,8 @@
 Release Notes
 *************
 
-.. release:: Upcoming
+.. release:: 0.11.3
+    :date: 2025-01-19
 
     .. change:: changed
 
