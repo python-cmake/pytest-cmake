@@ -4,6 +4,14 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Updated the :ref:`api_reference` section to include details on how ``DEPENDS``
+        can be used to ensure the target rebuilds whenever the Python files containing
+        :term:`Pytest` tests are modified. Thanks :github_user:`AmeyaVSingh`!
+
 .. release:: 0.11.2
     :date: 2025-01-18
 
