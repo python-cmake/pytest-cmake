@@ -49,9 +49,22 @@ add_test(NAME TestPytestArgs.Validate.test_basic
 )
 
 # Currently quoted args are not supported
-# pytest_discover_tests(
-# 	pytestargs_basic_args_quoted
-# 	PYTEST_ARGS "-v -s -q"
-# 	DEPENDS test_basic.py
-# )
+pytest_discover_tests(
+	pytestargs_basic_args_quoted
+	PYTEST_ARGS "-v -s -q"
+	DEPENDS test_basic.py
+)
 
+# semi-colon value to the PYTEST_ARGS is considered as a list
+pytest_discover_tests(
+	pytestargs_basic_args_semicolon
+	PYTEST_ARGS -v;-s;-q
+	DEPENDS test_basic.py
+)
+
+add_test(NAME TestPytestArgsSemicolon.Validate.test_basic
+    COMMAND ${CMAKE_COMMAND}
+    -D "TEST_PREFIX=pytestargs_basic_args_semicolon.test_basic"
+    -D "EXPECTED=pytestargs_basic_args_semicolon.test_basic"
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/../01-modify-name/compare_discovered_tests.cmake
+)
