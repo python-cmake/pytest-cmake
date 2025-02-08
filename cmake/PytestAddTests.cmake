@@ -26,10 +26,12 @@ if(CMAKE_SCRIPT_MODE_FILE)
         list(APPEND ENCODED_ENVIRONMENT "${env}")
     endforeach()
 
+    list(JOIN PYTEST_ARGS " " PYTEST_ARGS_STR)
+
     # Macro to create individual tests with optional test properties.
     macro(create_test NAME IDENTIFIER)
         string(APPEND _content
-            "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\" [==[${IDENTIFIER}]==])\n"
+            "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\" [==[${IDENTIFIER}]==] " ${PYTEST_ARGS_STR} ")\n"
         )
 
         # Prepare the properties for the test, including the environment settings.
@@ -62,7 +64,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         execute_process(
             COMMAND "${PYTEST_EXECUTABLE}"
                 --collect-only -q
-                --rootdir=${WORKING_DIRECTORY} . ${PYTEST_ARGS}
+                --rootdir=${WORKING_DIRECTORY} ${PYTEST_ARGS} .
             OUTPUT_VARIABLE _output_lines
             ERROR_VARIABLE _output_lines
             OUTPUT_STRIP_TRAILING_WHITESPACE
