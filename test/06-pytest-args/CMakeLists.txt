@@ -28,10 +28,24 @@ pytest_discover_tests(
 	DEPENDS test_basic.py
 )
 
+# add_test(NAME TestPytestArgs.Validate.test_no_discovered_w_args_v_s
+#     COMMAND ${CMAKE_COMMAND}
+#     -D "TEST_PREFIX=\"\""
+#     -D "EXPECTED=\"\""
+#     -P ${CMAKE_CURRENT_SOURCE_DIR}/../01-modify-name/compare_discovered_tests.cmake
+# )
+
 pytest_discover_tests(
 	pytestargs_basic_args
 	PYTEST_ARGS -v -s -q
 	DEPENDS test_basic.py
+)
+
+add_test(NAME TestPytestArgs.Validate.test_basic
+    COMMAND ${CMAKE_COMMAND}
+    -D "TEST_PREFIX=pytestargs_basic_args.test_basic"
+    -D "EXPECTED=pytestargs_basic_args.test_basic"
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/../01-modify-name/compare_discovered_tests.cmake
 )
 
 # Currently quoted args are not supported
