@@ -8,6 +8,6 @@ enable_testing()
 
 pytest_discover_tests(
     TestExtraArgs
-    EXTRA_ARGS "--capture=no"
+    EXTRA_ARGS "--capture=no" "--cmdopt=demo"
     DEPENDS test_extra_args.py
 )
