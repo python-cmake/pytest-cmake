@@ -58,7 +58,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
         cmake_parse_arguments(
             PARSE_ARGV 1 "" "STRIP_PARAM_BRACKETS;INCLUDE_FILE_PATH;BUNDLE_TESTS"
             "WORKING_DIRECTORY;TRIM_FROM_NAME;TRIM_FROM_FULL_NAME"
-            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;PROPERTIES;DEPENDS;PYTEST_ARGS"
+            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;PROPERTIES;DEPENDS;EXTRA_ARGS"
         )
 
         # Set platform-specific library path environment variable.
@@ -132,7 +132,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "ENVIRONMENT=${_ENVIRONMENT}"
             -D "TEST_PROPERTIES=${_PROPERTIES}"
             -D "CTEST_FILE=${_tests_file}"
-            -D "PYTEST_ARGS=${_PYTEST_ARGS}"
+            -D "EXTRA_ARGS=${_EXTRA_ARGS}"
             -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PytestAddTests.cmake")
 
         # Create a custom target to run the tests.
