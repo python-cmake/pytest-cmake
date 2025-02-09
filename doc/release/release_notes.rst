@@ -4,6 +4,14 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Added ``EXTRA_ARGS`` option to the :func:`pytest_discover_tests`
+        function, allowing custom arguments to be passed to the :term:`Pytest`
+        command when executing each test. Thanks :github_user:`AmeyaVS`!
+
 .. release:: 0.11.4
     :date: 2025-01-29
 

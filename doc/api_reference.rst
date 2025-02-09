@@ -23,6 +23,7 @@ API Reference
             [INCLUDE_FILE_PATH]
             [STRIP_PARAM_BRACKETS]
             [BUNDLE_TESTS]
+            [EXTRA_ARGS arg1 arg2...]
         )
 
     The options are:
@@ -184,10 +185,24 @@ API Reference
         Bundled tests generally run faster because :term:`Pytest` can use
         caching and :term:`fixtures <fixture>` with a broader scope.
 
+    * ``EXTRA_ARGS``
+
+        List of extra arguments to pass on the :term:`Pytest` command line for
+        each test case::
+
+            pytest_discover_tests(
+                ...
+                EXTRA_ARGS "--capture=no" "--cmdopt=demo"
+            )
+
+        .. seealso::
+
+            `Pytest Command-Line Flags
+            <https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags>`_
+
     .. note::
 
        This function works similarly to the `gtest_discover_tests
        <https://cmake.org/cmake/help/latest/module/GoogleTest.html#command:gtest_discover_tests>`_
        function, which creates :term:`CTest` tests for each :term:`GTest` tests
        discovered within a single C++ executable test file.
-
