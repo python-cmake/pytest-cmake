@@ -8,8 +8,9 @@ def test_requires_no_capture(request):
 
 
 def test_requires_args(cmdopt):
+    """Fails unless '--cmdopt=<value>' is passed to pytest."""
     if cmdopt != None:
-        print(cmdopt)
+        print(f"Option Value: cmdopt: {cmdopt}")
     else:
-        pytest.fail("Command line option not specified")
+        pytest.fail("Test requires '--cmdopt=<value>' to properly execute the test.")
     pass
