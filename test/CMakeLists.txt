@@ -52,3 +52,13 @@ ExternalProject_Add(
         -C Release -VV
         -R TestProperties.Validate
 )
+
+ExternalProject_Add(
+    TestExtraArgs
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/06-extra-args
+    BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/_deps/06-extra-args
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR>
+    INSTALL_COMMAND ""
+    TEST_COMMAND ${CMAKE_CTEST_COMMAND}
+        -C Release -VV
+)

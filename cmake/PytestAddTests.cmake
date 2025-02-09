@@ -26,10 +26,17 @@ if(CMAKE_SCRIPT_MODE_FILE)
         list(APPEND ENCODED_ENVIRONMENT "${env}")
     endforeach()
 
+    # Handle EXTRA_ARGS for individual tests
+    set(EXTRA_ARGS_WRAPPED)
+    foreach(arg IN LISTS EXTRA_ARGS)
+        list(APPEND EXTRA_ARGS_WRAPPED "[==[${arg}]==]")
+    endforeach()
+    list(JOIN EXTRA_ARGS_WRAPPED " " EXTRA_ARGS_STR)
+
     # Macro to create individual tests with optional test properties.
     macro(create_test NAME IDENTIFIER)
         string(APPEND _content
-            "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\" [==[${IDENTIFIER}]==])\n"
+            "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\" [==[${IDENTIFIER}]==] ${EXTRA_ARGS_STR} )\n"
         )
 
         # Prepare the properties for the test, including the environment settings.
