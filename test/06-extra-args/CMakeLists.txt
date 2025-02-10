@@ -27,9 +27,25 @@ add_test(
 
 # Negative Test which suppresses test discovery
 pytest_discover_tests(
-    TestDiscoveryArgsSupressDiscovery
+    TestDiscoveryArgsSupressDiscovery.discoverExtraArgs
     DISCOVERY_EXTRA_ARGS "-v"
     DEPENDS test_extra_args.py
+)
+
+set(EXPECTED
+    ""
+)
+
+add_test(
+    NAME TestDiscoveryArgsSupressDiscovery.Validate
+    COMMAND ${CMAKE_COMMAND}
+    -D "TEST_PREFIX=TestDiscoveryArgsSupressDiscovery.discoverExtraArgs"
+    -D "EXPECTED=${EXPECTED}"
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/../01-modify-name/compare_discovered_tests.cmake
+)
+
+set_tests_properties(
+    TestDiscoveryArgsSupressDiscovery.Validate PROPERTIES WILL_FAIL TRUE
 )
 
 # Test which re-enables test discovery due to usage of "-v" command line flag
