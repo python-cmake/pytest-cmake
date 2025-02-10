@@ -53,7 +53,7 @@ set_tests_properties(
 pytest_discover_tests(
     TestDiscoveryArgsDiscovery
     EXTRA_ARGS "--capture=no" "--cmdopt=discover"
-    DISCOVERY_EXTRA_ARGS "-v" "-q"
+    DISCOVERY_EXTRA_ARGS "--capture=no" "-v" "-q"
     INCLUDE_FILE_PATH
     DEPENDS test_extra_args.py
 )
