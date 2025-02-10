@@ -69,7 +69,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         execute_process(
             COMMAND "${PYTEST_EXECUTABLE}"
                 --collect-only -q
-                --rootdir=${WORKING_DIRECTORY} .
+                --rootdir=${WORKING_DIRECTORY} ${DISCOVERY_EXTRA_ARGS} .
             OUTPUT_VARIABLE _output_lines
             ERROR_VARIABLE _output_lines
             OUTPUT_STRIP_TRAILING_WHITESPACE

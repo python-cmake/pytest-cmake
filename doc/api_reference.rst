@@ -24,6 +24,7 @@ API Reference
             [STRIP_PARAM_BRACKETS]
             [BUNDLE_TESTS]
             [EXTRA_ARGS arg1 arg2...]
+            [DISCOVERY_EXTRA_ARGS arg1 arg2...]
         )
 
     The options are:
@@ -199,6 +200,26 @@ API Reference
 
             `Pytest Command-Line Flags
             <https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags>`_
+
+    * ``DISCOVERY_EXTRA_ARGS``
+
+        List of extra arguments to pass on the :term:`Pytest` command line for
+        the test discovery::
+
+            pytest_discover_tests(
+                ...
+                DISCOVERY_EXTRA_ARGS "--capture=no"
+            )
+
+        .. seealso::
+
+            `Pytest Command-Line Flags
+            <https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags>`_
+
+        .. note::
+            Due to possibility of changing the :term:`Pytest` test discovery
+            output format with certain command line options, ensure no such
+            combination are utilized or handled explicitly.
 
     .. note::
 
