@@ -208,7 +208,7 @@ API Reference
 
             pytest_discover_tests(
                 ...
-                DISCOVERY_EXTRA_ARGS "--capture=no"
+                DISCOVERY_EXTRA_ARGS "-k=expression"
             )
 
         .. seealso::
@@ -216,10 +216,10 @@ API Reference
             `Pytest Command-Line Flags
             <https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags>`_
 
-        .. note::
-            Due to possibility of changing the :term:`Pytest` test discovery
-            output format with certain command line options, ensure no such
-            combination are utilized or handled explicitly.
+        .. warning::
+
+            This option may affect test discovery. Some arguments can change
+            output format and break the test collection logic. Use with caution!
 
     .. note::
 

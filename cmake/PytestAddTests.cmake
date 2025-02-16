@@ -27,6 +27,10 @@ if(CMAKE_SCRIPT_MODE_FILE)
     endforeach()
 
     # Handle EXTRA_ARGS for individual tests
+    if(BUNDLE_TESTS)
+        list(PREPEND EXTRA_ARGS ${DISCOVERY_EXTRA_ARGS})
+    endif()
+
     set(EXTRA_ARGS_WRAPPED)
     foreach(arg IN LISTS EXTRA_ARGS)
         list(APPEND EXTRA_ARGS_WRAPPED "[==[${arg}]==]")
