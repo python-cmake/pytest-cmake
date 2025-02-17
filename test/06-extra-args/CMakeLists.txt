@@ -9,5 +9,23 @@ enable_testing()
 pytest_discover_tests(
     TestExtraArgs
     EXTRA_ARGS "--capture=no" "--cmdopt=demo"
-    DEPENDS test_extra_args.py
+)
+
+pytest_discover_tests(
+    TestDiscoveryExtraArgs.IgnoreCustomArgs
+    EXTRA_ARGS "--capture=no"
+    DISCOVERY_EXTRA_ARGS "--ignore=custom_args"
+)
+
+pytest_discover_tests(
+    TestDiscoveryExtraArgs.OnlyCustomArgs
+    EXTRA_ARGS "--cmdopt=demo"
+    DISCOVERY_EXTRA_ARGS "-k=custom"
+)
+
+pytest_discover_tests(
+    TestDiscoveryExtraArgs.OnlyCustomArgsBundled
+    EXTRA_ARGS "--cmdopt=demo"
+    DISCOVERY_EXTRA_ARGS "-k=custom"
+    BUNDLE_TESTS
 )
