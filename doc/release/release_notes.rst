@@ -4,6 +4,13 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Added compatibility with CMake 4.1.
+
+
 .. release:: 0.13.0
     :date: 2025-02-16
 
