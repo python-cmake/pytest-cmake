@@ -28,7 +28,7 @@ add_test(NAME TestModifyName.Validate.Simple
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.Simple"
     -D "EXPECTED=${EXPECTED}"
-    -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
 
 pytest_discover_tests(TestModifyName.Bundled BUNDLE_TESTS)
@@ -36,7 +36,7 @@ add_test(NAME TestModifyName.Validate.Bundled
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.Bundled"
     -D "EXPECTED=TestModifyName.Bundled"
-    -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
 
 pytest_discover_tests(
@@ -64,7 +64,7 @@ add_test(NAME TestModifyName.Validate.TrimFromName
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.TrimFromName"
     -D "EXPECTED=${EXPECTED}"
-    -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
 
 pytest_discover_tests(
@@ -92,7 +92,7 @@ add_test(NAME TestModifyName.Validate.StripParamBrackets
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.StripParamBrackets"
     -D "EXPECTED=${EXPECTED}"
-    -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
 
 pytest_discover_tests(
@@ -120,7 +120,7 @@ add_test(NAME TestModifyName.Validate.IncludeFilePath
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.IncludeFilePath"
     -D "EXPECTED=${EXPECTED}"
-    -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
 
 pytest_discover_tests(
@@ -149,5 +149,5 @@ add_test(NAME TestModifyName.Validate.TrimFromFullName
     COMMAND ${CMAKE_COMMAND}
     -D "TEST_PREFIX=TestModifyName.TrimFromFullName"
     -D "EXPECTED=${EXPECTED}"
-    -P ${CMAKE_CURRENT_LIST_DIR}/compare_discovered_tests.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
