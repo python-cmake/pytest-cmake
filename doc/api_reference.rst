@@ -12,6 +12,7 @@ API Reference
     with :term:`Pytest` within a controlled environment::
 
         pytest_discover_tests(NAME
+            [TEST_PATHS path1 path2...]
             [WORKING_DIRECTORY dir]
             [TRIM_FROM_NAME pattern]
             [TRIM_FROM_FULL_NAME pattern]
@@ -34,6 +35,19 @@ API Reference
         Indicate the name of the target that will be created. It will also be
         used as a prefix for each test created, or as an identifier the bundled
         test.
+
+    * ``TEST_PATHS``
+
+        Specifies a list of files or directories to search when executing
+        :term:`Pytest` from the current source directory (or from the
+        ``WORKING_DIRECTORY`` value if provided)::
+
+            pytest_discover_tests(
+                ...
+                TEST_PATHS
+                    path1
+                    path2/test.py
+            )
 
     * ``WORKING_DIRECTORY``
 

@@ -10,6 +10,25 @@ Release Notes
 
         Added compatibility with CMake 4.1.
 
+    .. change:: new
+
+        Added ``TEST_PATHS`` option to the :func:`pytest_discover_tests`
+        function, allowing users to limit test discovery and execution to
+        specific files or directories. If not specified, ``TEST_PATHS``
+        defaults to the ``testpaths`` setting in :file:`pytest.ini`, or to the
+        current directory if ``testpaths`` is not set. This matches
+        :term:`Pytest`’s native behavior and preserves full backward
+        compatibility.
+
+        .. seealso::
+
+            `'testpaths' configuration option
+            <https://docs.pytest.org/en/stable/reference/reference.html#confval-testpaths>`_
+
+    .. change:: fixed
+
+        Updated discovery error detection to recognize both block-form and
+        single-line messages from :term:`Pytest`.
 
 .. release:: 0.13.0
     :date: 2025-02-16

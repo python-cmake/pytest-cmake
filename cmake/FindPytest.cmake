@@ -55,10 +55,34 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
 
     # Function to discover pytest tests and add them to CTest.
     function(pytest_discover_tests NAME)
+        set(_BOOL_ARGS
+          STRIP_PARAM_BRACKETS
+          INCLUDE_FILE_PATH
+          BUNDLE_TESTS
+        )
+
+        set(_SINGLE_VALUE_ARGS
+          WORKING_DIRECTORY
+          TRIM_FROM_NAME
+          TRIM_FROM_FULL_NAME
+        )
+
+        set(_MULTI_VALUE_ARGS
+          TEST_PATHS
+          LIBRARY_PATH_PREPEND
+          PYTHON_PATH_PREPEND
+          ENVIRONMENT
+          PROPERTIES
+          DEPENDS
+          EXTRA_ARGS
+          DISCOVERY_EXTRA_ARGS
+        )
+
         cmake_parse_arguments(
-            PARSE_ARGV 1 "" "STRIP_PARAM_BRACKETS;INCLUDE_FILE_PATH;BUNDLE_TESTS"
-            "WORKING_DIRECTORY;TRIM_FROM_NAME;TRIM_FROM_FULL_NAME"
-            "LIBRARY_PATH_PREPEND;PYTHON_PATH_PREPEND;ENVIRONMENT;PROPERTIES;DEPENDS;EXTRA_ARGS;DISCOVERY_EXTRA_ARGS"
+            PARSE_ARGV 1 ""
+            "${_BOOL_ARGS}"
+            "${_SINGLE_VALUE_ARGS}"
+            "${_MULTI_VALUE_ARGS}"
         )
 
         # Set platform-specific library path environment variable.
@@ -119,6 +143,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             DEPENDS ${_DEPENDS}
             COMMAND ${CMAKE_COMMAND}
             -D "PYTEST_EXECUTABLE=${PYTEST_EXECUTABLE}"
+            -D "TEST_PATHS=${_TEST_PATHS}"
             -D "TEST_GROUP_NAME=${NAME}"
             -D "BUNDLE_TESTS=${_BUNDLE_TESTS}"
             -D "LIBRARY_ENV_NAME=${LIBRARY_ENV_NAME}"
@@ -139,13 +164,13 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
         # Create a custom target to run the tests.
         add_custom_target(${NAME} ALL DEPENDS ${_tests_file})
 
-          file(WRITE "${_include_file}"
-              "if(EXISTS \"${_tests_file}\")\n"
-              "    include(\"${_tests_file}\")\n"
-              "else()\n"
-              "    add_test(${NAME}_NOT_BUILT ${NAME}_NOT_BUILT)\n"
-              "endif()\n"
-          )
+        file(WRITE "${_include_file}"
+            "if(EXISTS \"${_tests_file}\")\n"
+            "    include(\"${_tests_file}\")\n"
+            "else()\n"
+            "    add_test(${NAME}_NOT_BUILT ${NAME}_NOT_BUILT)\n"
+            "endif()\n"
+        )
 
         # Register the include file to be processed for tests.
         set_property(DIRECTORY

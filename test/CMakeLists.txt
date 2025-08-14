@@ -62,3 +62,23 @@ ExternalProject_Add(
     TEST_COMMAND ${CMAKE_CTEST_COMMAND}
         -C Release -VV
 )
+
+ExternalProject_Add(
+    TestWorkingDirectory
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/07-working-directory
+    BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/_deps/07-working-directory
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR>
+    INSTALL_COMMAND ""
+    TEST_COMMAND ${CMAKE_CTEST_COMMAND}
+        -C Release -VV
+)
+
+ExternalProject_Add(
+    TestCustomPaths
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/08-test-paths
+    BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/_deps/08-test-paths
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR>
+    INSTALL_COMMAND ""
+    TEST_COMMAND ${CMAKE_CTEST_COMMAND}
+        -C Release -VV
+)

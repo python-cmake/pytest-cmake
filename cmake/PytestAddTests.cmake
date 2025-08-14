@@ -38,13 +38,20 @@ if(CMAKE_SCRIPT_MODE_FILE)
     list(JOIN EXTRA_ARGS_WRAPPED " " EXTRA_ARGS_STR)
 
     # Macro to create individual tests with optional test properties.
-    macro(create_test NAME IDENTIFIER)
-        string(APPEND _content
-            "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\" [==[${IDENTIFIER}]==] ${EXTRA_ARGS_STR} )\n"
-        )
+    macro(create_test NAME IDENTIFIERS)
+        string(APPEND _content "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\"")
+
+        foreach(identifier ${IDENTIFIERS})
+            string(APPEND _content " [==[${identifier}]==]")
+        endforeach()
+
+        string(APPEND _content " ${EXTRA_ARGS_STR} )\n")
 
         # Prepare the properties for the test, including the environment settings.
         set(args "PROPERTIES ENVIRONMENT [==[${ENCODED_ENVIRONMENT}]==]")
+
+        # Add working directory
+        string(APPEND args " WORKING_DIRECTORY [==[${WORKING_DIRECTORY}]==]")
 
         # Append any additional properties, escaping complex characters if necessary.
         foreach(property ${TEST_PROPERTIES})
@@ -61,7 +68,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
 
     # If tests are bundled together, create a single test group.
     if (BUNDLE_TESTS)
-        create_test("\${TEST_GROUP_NAME}" "\${WORKING_DIRECTORY}")
+        create_test("\${TEST_GROUP_NAME}" "\${TEST_PATHS}")
 
     else()
         # Set environment variables for collecting tests.
@@ -69,11 +76,19 @@ if(CMAKE_SCRIPT_MODE_FILE)
         set(ENV{PYTHONPATH} "${PYTHON_PATH}")
         set(ENV{PYTHONWARNINGS} "ignore")
 
+        set(_command
+            "${PYTEST_EXECUTABLE}" --collect-only -q
+            "--rootdir=${WORKING_DIRECTORY}"
+            ${DISCOVERY_EXTRA_ARGS}
+        )
+
+        foreach(test_path IN LISTS TEST_PATHS)
+            list(APPEND _command "${test_path}")
+        endforeach()
+
         # Collect tests.
         execute_process(
-            COMMAND "${PYTEST_EXECUTABLE}"
-                --collect-only -q
-                --rootdir=${WORKING_DIRECTORY} ${DISCOVERY_EXTRA_ARGS} .
+            COMMAND ${_command}
             OUTPUT_VARIABLE _output_lines
             ERROR_VARIABLE _output_lines
             OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -81,7 +96,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
         )
 
         # Check for errors during test collection.
-        string(REGEX MATCH "=+ ERRORS =+(.*)" _error "${_output_lines}")
+        string(REGEX MATCH "(=+ ERRORS =+|ERROR:).*" _error "${_output_lines}")
 
         if (_error)
             message(${_error})
@@ -141,7 +156,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
 
             # Prefix the test name with the test group name.
             set(test_name "${TEST_GROUP_NAME}.${test_name}")
-            set(test_case "${WORKING_DIRECTORY}/${line}")
+            set(test_case "${line}")
 
             # Create the test for CTest.
             create_test("\${test_name}" "\${test_case}")
