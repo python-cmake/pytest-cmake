@@ -6,6 +6,11 @@ Release Notes
 
 .. release:: Upcoming
 
+    .. change:: changed
+
+        Dropped support for Python 2.x. The minimum supported version is now
+        Python 3.7.
+
     .. change:: new
 
         Added compatibility with CMake 4.1.
