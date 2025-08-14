@@ -4,6 +4,21 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Added ``pytest-cmake`` CLI with ``--cmake-dir`` to print the
+        :term:`CMake` config path, simplifying integration with virtualenvs,
+        non-standard installs, or `--user
+        <https://pip.pypa.io/en/stable/cli/pip_install/#install-user>`_ installs.
+
+    .. change:: changed
+
+        Removed documentation for integrating the :term:`CMake` module directly
+        from the Git repository, as this unsustainable method was already
+        discouraged.
+
 .. release:: 1.0.0
     :date: 2025-08-13
 

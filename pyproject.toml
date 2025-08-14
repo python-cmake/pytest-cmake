@@ -33,6 +33,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 
+[project.scripts]
+pytest-cmake = "pytest_cmake.__main__:main"
+
 [project.urls]
 Documentation = "https://python-cmake.github.io/pytest-cmake"
 Repository = "https://github.com/python-cmake/pytest-cmake"
@@ -50,7 +53,8 @@ path = "build_config.py"
 "cmake/PytestAddTests.cmake" = "share/Pytest/cmake/PytestAddTests.cmake"
 
 [tool.hatch.build.targets.wheel]
-only-include = ["*.cmake"]
+packages = ["src/pytest_cmake"]
+only-include = ["src/pytest_cmake", "*.cmake"]
 
 [tool.hatch.build.targets.sdist]
-only-include = ["cmake", "build_config.py"]
+only-include = ["src/pytest_cmake", "cmake", "build_config.py"]
