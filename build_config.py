@@ -33,7 +33,7 @@ class BuildConfig(BuildHookInterface):
             stream.write(
                 "include(CMakePackageConfigHelpers)\n"
                 "write_basic_package_version_file(\n"
-                f"    \"{str(version_config_path)}\"\n"
+                f"    \"{str(version_config_path.as_posix())}\"\n"
                 f"    VERSION {pytest.__version__}\n"
                 "    COMPATIBILITY AnyNewerVersion\n"
                 ")"
