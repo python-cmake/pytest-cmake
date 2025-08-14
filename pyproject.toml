@@ -7,7 +7,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pytest-cmake"
-version = "0.13.0"
+version = "1.0.0"
 description = "Provide CMake module for Pytest"
 readme = "README.md"
 requires-python = ">=3.7, <4"
