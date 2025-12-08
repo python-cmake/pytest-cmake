@@ -1,7 +1,7 @@
 [build-system]
 requires = [
     "hatchling >= 1.4",
-    "cmake >= 3.20, < 4.2"
+    "cmake >= 3.20, < 4.3"
 ]
 build-backend = "hatchling.build"
 
@@ -17,7 +17,7 @@ authors = [
     {name = "Jeremy Retailleau", email = "jeremy.retailleau@gmail.com" }
 ]
 dependencies = [
-    "pytest >= 4, < 9",
+    "pytest >= 4, < 10",
 ]
 classifiers = [
     "Intended Audience :: Developers",

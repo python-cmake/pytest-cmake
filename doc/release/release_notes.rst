@@ -4,6 +4,12 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Added compatibility with CMake 4.2 and Pytest v9.
+
 .. release:: 1.1.0
     :date: 2025-08-14
 

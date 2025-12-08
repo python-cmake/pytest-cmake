@@ -1,5 +1,5 @@
 # Wrapper used to create individual CTest tests from Pytest tests.
-cmake_minimum_required(VERSION 3.20...4.1)
+cmake_minimum_required(VERSION 3.20...4.2)
 
 if(CMAKE_SCRIPT_MODE_FILE)
 
