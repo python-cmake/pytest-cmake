@@ -30,7 +30,7 @@ jobs:
 
       - name: Build package
         run: |
-          python -m build --sdist
+          python -m build
 
       - name: Check metadata
         run: twine check dist/*
@@ -60,4 +60,3 @@ jobs:
         with:
           name: "v${{ steps.get_version.outputs.version }}"
           body: "Notes: https://python-cmake.github.io/pytest-cmake/release/release_notes.html"
-
