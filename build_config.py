@@ -1,7 +1,6 @@
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 import pathlib
-import subprocess
 
 
 class BuildConfig(BuildHookInterface):
@@ -9,7 +8,6 @@ class BuildConfig(BuildHookInterface):
 
     def initialize(self, version, build_data):
         """Execute builder."""
-        import pytest
 
         root = pathlib.Path(__file__).parent.resolve()
         build_path = (root / "build")
@@ -25,18 +23,10 @@ class BuildConfig(BuildHookInterface):
                 "include(${CMAKE_CURRENT_LIST_DIR}/FindPytest.cmake)\n"
             )
 
-        # Generate CMake config version file for client to target a specific
-        # version of Pytest within CMake projects.
-        version_config_path = (build_path / "PytestConfigVersion.cmake")
-        script_path = (build_path / "PytestConfigVersionScript.cmake")
-        with script_path.open("w", encoding="utf-8") as stream:
+        # Always accept; actual version checks are handled by FindPytest.cmake
+        config_path = (build_path / "PytestConfigVersion.cmake")
+        with config_path.open("w", encoding="utf-8") as stream:
             stream.write(
-                "include(CMakePackageConfigHelpers)\n"
-                "write_basic_package_version_file(\n"
-                f"    \"{str(version_config_path.as_posix())}\"\n"
-                f"    VERSION {pytest.__version__}\n"
-                "    COMPATIBILITY AnyNewerVersion\n"
-                ")"
+                "set(PACKAGE_VERSION_COMPATIBLE TRUE)\n"
+                "set(PACKAGE_VERSION_EXACT TRUE)\n"
             )
-
-        subprocess.call(["cmake", "-P", str(script_path), "-VV"])

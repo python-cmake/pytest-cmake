@@ -63,6 +63,7 @@ jobs:
         run: |
           cmake -S ./test -B ./test/build
           cmake --build ./test/build
+          ctest --test-dir ./test/build -VV -C Release
 
       - name: Configure Example
         shell: bash

@@ -2,7 +2,16 @@ cmake_minimum_required(VERSION 3.20)
 
 project(Test)
 
+enable_testing()
 include(ExternalProject)
+
+add_test(
+    NAME TestVersionFails
+    COMMAND ${CMAKE_COMMAND}
+    -S ${CMAKE_CURRENT_SOURCE_DIR}/tests/00-version-fails
+    -B ${CMAKE_BINARY_DIR}/_deps/00-version-fails
+)
+set_tests_properties(TestVersionFails PROPERTIES WILL_FAIL TRUE)
 
 ExternalProject_Add(
     TestModifyName

@@ -4,6 +4,18 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: changed
+
+        Updated :term:`CMake` packaging by simplifying
+        `PytestConfigVersion.cmake` so that version compatibility is no longer
+        fixed at build time. Version discovery and validation are handled
+        dynamically by `FindPytest.cmake`, with `PytestConfig.cmake` serving
+        only as a thin entry point for :term:`CMake` package discovery.
+        Wheel distribution is fully supported and recommended.
+        Thanks :github_user:`dimbleby`!
+
 .. release:: 1.2.0
     :date: 2025-12-08
 
@@ -165,7 +177,7 @@ Release Notes
 
     .. change:: changed
 
-        Added documentation for :ref:`installing/deployment`.
+        Added documentation for deployment.
 
     .. change:: changed
 
