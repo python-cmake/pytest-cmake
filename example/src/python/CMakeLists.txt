@@ -12,17 +12,3 @@ if(WIN32)
 endif()
 
 target_link_libraries(pyFoo PUBLIC foo)
-
-if (WIN32)
-    # As of Python v3.8 and newer, DLLs are no longer searched for in the 
-    # PATH environment variable on Windows. Therefore, it is necessary to
-    # ensure that they are all located in the same directory.
-    add_custom_command(
-        TARGET pyFoo POST_BUILD
-        COMMAND ${CMAKE_COMMAND}
-        -E copy_if_different
-        $<TARGET_FILE:foo>
-        $<TARGET_FILE_DIR:pyFoo>
-        COMMAND_EXPAND_LISTS
-    )
-endif()

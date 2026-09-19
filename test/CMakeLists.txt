@@ -91,3 +91,13 @@ ExternalProject_Add(
     TEST_COMMAND ${CMAKE_CTEST_COMMAND}
         -C Release -VV
 )
+
+ExternalProject_Add(
+    TestDllDirectories
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/09-dll-directories
+    BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/_deps/09-dll-directories
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR>
+    INSTALL_COMMAND ""
+    TEST_COMMAND ${CMAKE_CTEST_COMMAND}
+        -C Release -VV
+)

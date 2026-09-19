@@ -20,6 +20,17 @@ if(CMAKE_SCRIPT_MODE_FILE)
         "PYTHONPATH=${PYTHON_PATH}"
     )
 
+    # On Windows, expose the prepended directories to the DLL plugin, which
+    # registers them with 'os.add_dll_directory' (Python 3.8+ ignores PATH).
+    set(DLL_PLUGIN_ARGS)
+    if(LIBRARY_ENV_NAME STREQUAL "PATH" AND DLL_DIRECTORIES)
+        cmake_path(CONVERT "${DLL_DIRECTORIES}" TO_NATIVE_PATH_LIST DLL_DIRECTORIES)
+        string(REPLACE [[;]] [[\\;]] DLL_DIRECTORIES "${DLL_DIRECTORIES}")
+        list(APPEND ENCODED_ENVIRONMENT
+            "PYTEST_CMAKE_DLL_DIRECTORIES=${DLL_DIRECTORIES}")
+        set(DLL_PLUGIN_ARGS -p pytest_cmake._dll_directories)
+    endif()
+
     # Serialize additional environment variables if any are provided.
     foreach(env ${ENVIRONMENT})
         string(REPLACE [[;]] [[\\;]] env "${env}")
@@ -37,9 +48,20 @@ if(CMAKE_SCRIPT_MODE_FILE)
     endforeach()
     list(JOIN EXTRA_ARGS_WRAPPED " " EXTRA_ARGS_STR)
 
+    # Serialize the DLL plugin arguments (empty except on Windows).
+    set(DLL_PLUGIN_ARGS_WRAPPED)
+    foreach(arg IN LISTS DLL_PLUGIN_ARGS)
+        list(APPEND DLL_PLUGIN_ARGS_WRAPPED "[==[${arg}]==]")
+    endforeach()
+    list(JOIN DLL_PLUGIN_ARGS_WRAPPED " " DLL_PLUGIN_ARGS_STR)
+
     # Macro to create individual tests with optional test properties.
     macro(create_test NAME IDENTIFIERS)
         string(APPEND _content "add_test([==[${NAME}]==] \"${PYTEST_EXECUTABLE}\"")
+
+        if(DLL_PLUGIN_ARGS_STR)
+            string(APPEND _content " ${DLL_PLUGIN_ARGS_STR}")
+        endif()
 
         foreach(identifier ${IDENTIFIERS})
             string(APPEND _content " [==[${identifier}]==]")
@@ -76,9 +98,15 @@ if(CMAKE_SCRIPT_MODE_FILE)
         set(ENV{PYTHONPATH} "${PYTHON_PATH}")
         set(ENV{PYTHONWARNINGS} "ignore")
 
+        # Discovery imports the extensions too, so register the DLL dirs here.
+        if(DLL_PLUGIN_ARGS)
+            set(ENV{PYTEST_CMAKE_DLL_DIRECTORIES} "${DLL_DIRECTORIES}")
+        endif()
+
         set(_command
             "${PYTEST_EXECUTABLE}" --collect-only -q
             "--rootdir=${WORKING_DIRECTORY}"
+            ${DLL_PLUGIN_ARGS}
             ${DISCOVERY_EXTRA_ARGS}
         )
 

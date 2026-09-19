@@ -179,6 +179,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "BUNDLE_TESTS=${_BUNDLE_TESTS}"
             -D "LIBRARY_ENV_NAME=${LIBRARY_ENV_NAME}"
             -D "LIBRARY_PATH=${LIBRARY_PATH}"
+            -D "DLL_DIRECTORIES=${_LIBRARY_PATH_PREPEND}"
             -D "PYTHON_PATH=${PYTHON_PATH}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
             -D "TRIM_FROM_FULL_NAME=${_TRIM_FROM_FULL_NAME}"

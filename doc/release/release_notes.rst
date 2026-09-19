@@ -4,6 +4,17 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Extended the ``LIBRARY_PATH_PREPEND`` argument of the
+        :func:`pytest_discover_tests` function to expose native dependencies to
+        Python extension modules on Windows, where Python 3.8+ no longer
+        resolves DLL dependencies through :envvar:`PATH`. The prepended
+        directories are registered with :func:`os.add_dll_directory` at test
+        time through a bundled Pytest plugin.
+
 .. release:: 1.4.1
     :date: 2026-09-19
 
