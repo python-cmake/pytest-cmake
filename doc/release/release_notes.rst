@@ -4,6 +4,12 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Corrected the source path of the ``TestVersionFails`` test.
+
 .. release:: 1.3.0
     :date: 2026-01-02
 
