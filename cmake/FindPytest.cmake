@@ -17,7 +17,7 @@
 #     prepend a custom search path.
 #     (https://cmake.org/cmake/help/latest/policy/CMP0074.html)
 
-cmake_minimum_required(VERSION 3.20...4.2)
+cmake_minimum_required(VERSION 3.20...4.4)
 
 include(FindPackageHandleStandardArgs)
 

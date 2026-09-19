@@ -6,6 +6,10 @@ Release Notes
 
 .. release:: Upcoming
 
+    .. change:: new
+
+        Added compatibility with :term:`CMake` 4.4.
+
     .. change:: fixed
 
         Corrected the source path of the ``TestVersionFails`` test.

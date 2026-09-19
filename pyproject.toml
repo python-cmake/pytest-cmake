@@ -1,7 +1,7 @@
 [build-system]
 requires = [
     "hatchling >= 1.4",
-    "cmake >= 3.20, < 4.3"
+    "cmake >= 3.20, < 4.5"
 ]
 build-backend = "hatchling.build"
 

@@ -7,9 +7,7 @@ on:
   pull_request:
     branches: [ main ]
 
-  # Run tests once a week on Sunday.
-  schedule:
-    - cron: "0 6 * * 0"
+  workflow_dispatch:
 
 jobs:
   run-tests:
@@ -17,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         pytest: [ "8", "9" ]
-        cmake: [ "3.20", "4.2" ]
+        cmake: [ "3.20", "4.4" ]
         os: [ "ubuntu", "macos", "windows" ]
         python: [ "3.10", "3.14" ]
         bundled: [ false, true ]
@@ -30,20 +28,20 @@ jobs:
     runs-on: "${{ matrix.os }}-latest"
 
     steps:
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "${{ matrix.python }}"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup CMake
-        uses: jwlawson/actions-setup-cmake@v2.0
+        uses: jwlawson/actions-setup-cmake@v2.2
         if: ${{matrix.os != 'windows' || matrix.cmake != '3.20'}}
         with:
           cmake-version: "${{ matrix.cmake }}.x"
 
       - name: Setup CMake (Bump up CMake minimal version for Visual Studio 17 2022)
-        uses: jwlawson/actions-setup-cmake@v2.0
+        uses: jwlawson/actions-setup-cmake@v2.2
         if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
         with:
           # Visual Studio 17 2022 requires at least CMake 3.21.
