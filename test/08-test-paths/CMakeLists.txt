@@ -92,3 +92,28 @@ add_test(NAME TestCustomPaths.Validate.WithWorkingDirectory
     -D "EXPECTED=${EXPECTED}"
     -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
 )
+
+# The PYTHON_TEST_PATHS environment variable should override TEST_PATHS
+# (and the 'testpaths' setting from pytest.ini). Serialize the paths using
+# the platform path-list separator, as consumed by the module.
+set(_override_paths
+    "${CMAKE_CURRENT_LIST_DIR}/test_a/math/test_add.py"
+    "test_b/test_concat.py"
+)
+cmake_path(CONVERT "${_override_paths}" TO_NATIVE_PATH_LIST _override_env)
+set(ENV{PYTHON_TEST_PATHS} "${_override_env}")
+pytest_discover_tests(
+    TestCustomPaths.EnvOverride
+    TEST_PATHS test_a
+)
+unset(ENV{PYTHON_TEST_PATHS})
+set(EXPECTED
+    "TestCustomPaths.EnvOverride.test_addition"
+    "TestCustomPaths.EnvOverride.test_concat"
+)
+add_test(NAME TestCustomPaths.Validate.EnvOverride
+    COMMAND ${CMAKE_COMMAND}
+    -D "TEST_PREFIX=TestCustomPaths.EnvOverride"
+    -D "EXPECTED=${EXPECTED}"
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/compare_discovered_tests.cmake
+)

@@ -11,6 +11,13 @@ Environment variables directly defined or referenced by this package.
     Environment variable used to dynamically set a value for the
     ``BUNDLE_TESTS`` argument of the :func:`pytest_discover_tests` function.
 
+.. envvar:: PYTHON_TEST_PATHS
+
+    Environment variable used to dynamically set a value for the
+    ``TEST_PATHS`` argument of the :func:`pytest_discover_tests` function.
+    Multiple paths can be provided, separated by the platform path-list
+    separator (``:`` on UNIX, ``;`` on Windows).
+
 .. envvar:: CMAKE_PREFIX_PATH
 
     Environment variable (or :term:`CMake` option) used to locate directory

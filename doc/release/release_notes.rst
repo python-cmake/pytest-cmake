@@ -8,6 +8,12 @@ Release Notes
 
     .. change:: new
 
+        Added the :envvar:`PYTHON_TEST_PATHS` environment variable to
+        dynamically override the ``TEST_PATHS`` argument of the
+        :func:`pytest_discover_tests` function.
+
+    .. change:: new
+
         Added compatibility with :term:`CMake` 4.4.
 
     .. change:: fixed

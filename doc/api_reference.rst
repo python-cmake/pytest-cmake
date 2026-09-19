@@ -49,6 +49,9 @@ API Reference
                     path2/test.py
             )
 
+        This option can also be set dynamically by using the
+        :envvar:`PYTHON_TEST_PATHS` environment variable.
+
     * ``WORKING_DIRECTORY``
 
         Specify the directory in which to run the :term:`Pytest` command. If
