@@ -40,13 +40,13 @@ jobs:
         with:
           cmake-version: "${{ matrix.cmake }}.x"
 
-      - name: Setup CMake (Bump up CMake minimal version for Visual Studio 17 2022)
+      - name: Setup CMake (Bump up CMake minimal version for Visual Studio 18 2026)
         uses: jwlawson/actions-setup-cmake@v2.2
         if: ${{matrix.os == 'windows' && matrix.cmake == '3.20'}}
         with:
-          # Visual Studio 17 2022 requires at least CMake 3.21.
-          # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2017%202022.html
-          cmake-version: "3.21.x"
+          # Visual Studio 18 2026 requires at least CMake 4.2.
+          # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2018%202026.html
+          cmake-version: "4.2.x"
 
       - name: Setup Environment
         shell: bash
