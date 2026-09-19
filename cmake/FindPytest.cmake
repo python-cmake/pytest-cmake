@@ -1,21 +1,40 @@
-# Discover required Pytest target.
+# FindPytest
+# ----------
 #
-# This module defines the following imported targets:
-#     Pytest::Pytest
-#
-# It also exposes the 'pytest_discover_tests' function, which adds CTest
-# test for each Pytest test. The "BUNDLE_PYTHON_TESTS" environment variable
-# can be used to run all discovered tests together.
+# Find the Pytest executable and expose helpers to register Python tests
+# with CTest.
 #
 # Usage:
-#     find_package(Pytest)
-#     find_package(Pytest REQUIRED)
-#     find_package(Pytest 4.6.11 REQUIRED)
+#     find_package(Pytest)                  # any version
+#     find_package(Pytest REQUIRED)         # fail if not found
+#     find_package(Pytest 4.6.11 REQUIRED)  # require at least this version
 #
-# Note:
-#     The Pytest_ROOT environment variable or CMake variable can be used to
-#     prepend a custom search path.
-#     (https://cmake.org/cmake/help/latest/policy/CMP0074.html)
+# Imported targets:
+#     Pytest::Pytest
+#         The 'pytest' executable, available when Pytest is found.
+#
+# Result variables:
+#     Pytest_FOUND
+#         True if a suitable Pytest executable was found.
+#     PYTEST_EXECUTABLE
+#         Path to the discovered 'pytest' executable.
+#     PYTEST_VERSION
+#         Version reported by the discovered executable.
+#
+# Functions:
+#     pytest_discover_tests(<name> ...)
+#         Collect the Python tests reachable from the current directory and
+#         register each of them as an individual CTest test (or as a single
+#         bundled test). See the online documentation for the full list of
+#         options.
+#
+# Environment variables:
+#     Pytest_ROOT
+#         Prepended to the search path used to locate the package.
+#         (https://cmake.org/cmake/help/latest/policy/CMP0074.html)
+#     BUNDLE_PYTHON_TESTS
+#         Overrides the 'BUNDLE_TESTS' option of pytest_discover_tests(),
+#         running all discovered tests together as a single CTest test.
 
 cmake_minimum_required(VERSION 3.20...4.4)
 
