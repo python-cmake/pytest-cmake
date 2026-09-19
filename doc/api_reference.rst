@@ -122,6 +122,14 @@ API Reference
                     /path/to/libs/
             )
 
+        .. note::
+
+            On Windows, Python 3.8+ no longer resolves the DLL dependencies of
+            extension modules through :envvar:`PATH`. These directories are
+            therefore also registered with :func:`os.add_dll_directory` at test
+            time through a bundled :term:`Pytest` plugin, so that native
+            dependencies of extension modules can be loaded.
+
     * ``PYTHON_PATH_PREPEND``
 
         List of Python paths to prepend to the :envvar:`PYTHONPATH` environment
