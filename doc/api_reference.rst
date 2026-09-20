@@ -202,6 +202,17 @@ API Reference
                 DEPENDS ${test_files}
             )
 
+        .. note::
+
+            On Windows, the transitive runtime-DLL directories of each
+            dependent target are also registered with
+            :func:`os.add_dll_directory` at test time (see
+            ``LIBRARY_PATH_PREPEND``), so that native dependencies of Python
+            extension modules can be loaded without listing them manually.
+            This relies on `TARGET_RUNTIME_DLL_DIRS
+            <https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html#genex:TARGET_RUNTIME_DLL_DIRS>`_
+            and requires :term:`CMake` 3.27 or later.
+
     * ``BUNDLE_TESTS``
 
         Indicate whether Python tests should be bundled under a single

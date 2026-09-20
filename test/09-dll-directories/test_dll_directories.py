@@ -59,3 +59,47 @@ def test_noop_without_add_dll_directory(tmp_path, monkeypatch):
     plugin._register_dll_directories()
 
     assert plugin._HANDLES == []
+
+
+class _FakeReport:
+    def __init__(self, longrepr):
+        self.longrepr = longrepr
+
+
+class _FakeTerminalReporter:
+    def __init__(self, stats):
+        self.stats = stats
+        self.lines = []
+
+    def write_sep(self, sep, title, **kwargs):
+        self.lines.append(title)
+
+    def write_line(self, line, **kwargs):
+        self.lines.append(line)
+
+
+def test_summary_reports_directories_on_dll_error(monkeypatch):
+    """List the registered directories when a DLL fails to load."""
+    monkeypatch.setattr(plugin, "_DIRECTORIES", ["C:/libs/foo", "C:/libs/bar"])
+    reporter = _FakeTerminalReporter(
+        {"error": [_FakeReport("ImportError: DLL load failed while importing foo")]}
+    )
+
+    plugin.pytest_terminal_summary(reporter)
+
+    output = "\n".join(reporter.lines)
+    assert "C:/libs/foo" in output
+    assert "C:/libs/bar" in output
+    assert "LIBRARY_PATH_PREPEND" in output
+
+
+def test_summary_silent_without_dll_error(monkeypatch):
+    """Stay quiet when no DLL load failure is reported."""
+    monkeypatch.setattr(plugin, "_DIRECTORIES", ["C:/libs/foo"])
+    reporter = _FakeTerminalReporter(
+        {"failed": [_FakeReport("AssertionError: 1 != 2")]}
+    )
+
+    plugin.pytest_terminal_summary(reporter)
+
+    assert reporter.lines == []
