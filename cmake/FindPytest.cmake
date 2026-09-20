@@ -145,6 +145,18 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             endforeach()
         endif()
 
+        # Dirs for the DLL plugin: prepended paths plus each dependency's
+        # transitive runtime-DLL dirs (empty off Windows, needs CMake 3.27).
+        set(_DLL_DIRECTORIES ${_LIBRARY_PATH_PREPEND})
+        if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.27)
+            foreach (_dependency ${_DEPENDS})
+                if (TARGET ${_dependency})
+                    list(APPEND _DLL_DIRECTORIES
+                        "$<TARGET_RUNTIME_DLL_DIRS:${_dependency}>")
+                endif()
+            endforeach()
+        endif()
+
         # Set default working directory if none is specified.
         if (NOT _WORKING_DIRECTORY)
             set(_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -179,7 +191,7 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
             -D "BUNDLE_TESTS=${_BUNDLE_TESTS}"
             -D "LIBRARY_ENV_NAME=${LIBRARY_ENV_NAME}"
             -D "LIBRARY_PATH=${LIBRARY_PATH}"
-            -D "DLL_DIRECTORIES=${_LIBRARY_PATH_PREPEND}"
+            -D "DLL_DIRECTORIES=${_DLL_DIRECTORIES}"
             -D "PYTHON_PATH=${PYTHON_PATH}"
             -D "TRIM_FROM_NAME=${_TRIM_FROM_NAME}"
             -D "TRIM_FROM_FULL_NAME=${_TRIM_FROM_FULL_NAME}"

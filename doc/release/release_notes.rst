@@ -4,6 +4,22 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: new
+
+        Extended the ``DEPENDS`` argument of the :func:`pytest_discover_tests`
+        function to register the transitive runtime-DLL directories of each
+        dependent target with :func:`os.add_dll_directory` on Windows, so that
+        native dependencies of Python extension modules can be loaded without
+        listing them manually. Requires :term:`CMake` 3.27 or later.
+
+    .. change:: new
+
+        Reported the registered DLL search directories when a Python extension
+        module fails to load on Windows, to help diagnose missing native
+        dependencies.
+
 .. release:: 1.5.0
     :date: 2026-09-20
 
