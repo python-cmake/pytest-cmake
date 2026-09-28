@@ -147,12 +147,16 @@ if (Pytest_FOUND AND NOT TARGET Pytest::Pytest)
 
         # Dirs for the DLL plugin: prepended paths plus each dependency's
         # transitive runtime-DLL dirs (empty off Windows, needs CMake 3.27).
+        # Skip DEPENDS targets TARGET_RUNTIME_DLL_DIRS can't be evaluated on.
         set(_DLL_DIRECTORIES ${_LIBRARY_PATH_PREPEND})
         if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.27)
             foreach (_dependency ${_DEPENDS})
                 if (TARGET ${_dependency})
-                    list(APPEND _DLL_DIRECTORIES
-                        "$<TARGET_RUNTIME_DLL_DIRS:${_dependency}>")
+                    get_target_property(_dependency_type ${_dependency} TYPE)
+                    if (_dependency_type MATCHES "^(EXECUTABLE|SHARED_LIBRARY|MODULE_LIBRARY)$")
+                        list(APPEND _DLL_DIRECTORIES
+                            "$<TARGET_RUNTIME_DLL_DIRS:${_dependency}>")
+                    endif()
                 endif()
             endforeach()
         endif()

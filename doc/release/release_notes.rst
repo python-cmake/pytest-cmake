@@ -4,6 +4,14 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Fixed a :term:`CMake` generation failure when ``DEPENDS`` included a
+        non-binary target, such as an ``INTERFACE`` library used only for
+        build ordering.
+
 .. release:: 1.6.0
     :date: 2026-09-20
 
