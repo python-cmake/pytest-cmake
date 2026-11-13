@@ -16,7 +16,7 @@ add_test(NAME TestProperties.Validate.Timeout
     -D "TEST_PREFIX=TestProperties.Timeout"
     -D "TEST_PROPERTY=TIMEOUT"
     -D "EXPECTED_VALUE=120.0"
-    -P ${CMAKE_CURRENT_LIST_DIR}/check_test_property.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/check_test_property.cmake
 )
 
 pytest_discover_tests(
@@ -29,7 +29,7 @@ add_test(NAME TestProperties.Validate.Labels
     -D "TEST_PREFIX=TestProperties.Labels"
     -D "TEST_PROPERTY=LABELS"
     -D "EXPECTED_VALUE=[ \"bar\", \"foo\" ]"
-    -P ${CMAKE_CURRENT_LIST_DIR}/check_test_property.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/check_test_property.cmake
 )
 
 pytest_discover_tests(
@@ -42,7 +42,7 @@ add_test(NAME TestProperties.Validate.Disabled
     -D "TEST_PREFIX=TestProperties.Disabled"
     -D "TEST_PROPERTY=DISABLED"
     -D "EXPECTED_VALUE=ON"
-    -P ${CMAKE_CURRENT_LIST_DIR}/check_test_property.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/check_test_property.cmake
 )
 
 pytest_discover_tests(
@@ -55,5 +55,5 @@ add_test(NAME TestProperties.Validate.SkipReturnCode
     -D "TEST_PREFIX=TestProperties.SkipReturnCode"
     -D "TEST_PROPERTY=SKIP_RETURN_CODE"
     -D "EXPECTED_VALUE=77"
-    -P ${CMAKE_CURRENT_LIST_DIR}/check_test_property.cmake
+    -P ${CMAKE_CURRENT_LIST_DIR}/../utils/check_test_property.cmake
 )
