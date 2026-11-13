@@ -4,6 +4,17 @@
 Release Notes
 *************
 
+.. release:: Upcoming
+
+    .. change:: fixed
+
+        Updated the :func:`pytest_discover_tests` function to keep symbolic
+        links in the ``WORKING_DIRECTORY`` value, so that tests run from the
+        path given instead of the resolved one. Previously, a build tree
+        configured through a symbolic link could not run its tests once the
+        link targeted another location. Test collection still uses the
+        resolved path, as introduced in version 0.5.2.
+
 .. release:: 1.6.1
     :date: 2026-09-28
 

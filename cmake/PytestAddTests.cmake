@@ -103,9 +103,14 @@ if(CMAKE_SCRIPT_MODE_FILE)
             set(ENV{PYTEST_CMAKE_DLL_DIRECTORIES} "${DLL_DIRECTORIES}")
         endif()
 
+        # Collect from the resolved path, as Pytest resolves symbolic links in
+        # the invocation directory but not in 'rootdir'.
+        # https://github.com/pytest-dev/pytest/issues/12291
+        get_filename_component(_collect_directory "${WORKING_DIRECTORY}" REALPATH)
+
         set(_command
             "${PYTEST_EXECUTABLE}" --collect-only -q
-            "--rootdir=${WORKING_DIRECTORY}"
+            "--rootdir=${_collect_directory}"
             ${DLL_PLUGIN_ARGS}
             ${DISCOVERY_EXTRA_ARGS}
         )
@@ -120,7 +125,7 @@ if(CMAKE_SCRIPT_MODE_FILE)
             OUTPUT_VARIABLE _output_lines
             ERROR_VARIABLE _output_lines
             OUTPUT_STRIP_TRAILING_WHITESPACE
-            WORKING_DIRECTORY ${WORKING_DIRECTORY}
+            WORKING_DIRECTORY ${_collect_directory}
         )
 
         # Check for errors during test collection.
